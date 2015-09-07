@@ -26,3 +26,7 @@
 *.exe
 *.out
 *.app
+/IEX2010/IEX2010.vcxproj.filters
+/IEX2010/Debug
+/IEX2010/IEX2010.sdf
+/IEX2010/IEX2010.v12.suo
