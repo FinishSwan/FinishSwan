@@ -102,6 +102,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\camera.cpp" />
+    <ClCompile Include="source\Player.cpp" />
     <ClCompile Include="source\sceneMain.cpp" />
     <ClCompile Include="source\system\Framework.cpp" />
     <ClCompile Include="source\system\System.cpp" />
@@ -124,6 +126,9 @@
     <ClCompile Include="IEX\IEX_View.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\BaseObj.h" />
+    <ClInclude Include="source\camera.h" />
+    <ClInclude Include="source\Player.h" />
     <ClInclude Include="source\system\Framework.h" />
     <ClInclude Include="source\system\Scene.h" />
     <ClInclude Include="source\sceneMain.h" />
