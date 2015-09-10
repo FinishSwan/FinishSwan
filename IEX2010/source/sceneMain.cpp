@@ -5,6 +5,8 @@
 
 #include	"sceneMain.h"
 
+#include	"ObjectManager.h"
+
 //*****************************************************************************************************************************
 //
 //	グローバル変数
@@ -50,16 +52,24 @@ bool sceneMain::Initialize()
 	//	ステージ読み込み
 	stage = new iexMesh("DATA\\BG\\STAGE\\STAGE01.X");
 
+	iex3DObj* insert = new iex3DObj("DATA\\CHR\\ECCMAN\\ECCMAN.IEM");
 
 	//	プレイヤー初期化
-	player = new Player();
-	player->Init("DATA\\CHR\\ECCMAN\\ECCMAN.IEM");
-	player->SetPos(Vector3(0.0f, 0.0f, 0.0f));//位置決定
-	player->SetScale(Vector3(0.05f, 0.05f, 0.05f));//スケール設定
-	player->SetAngle(Vector3(0.05f, 0.05f, 0.05f));//向き
+	player = new Player(1,
+		0.3,
+		Vector3(0, 0, 0),
+		Vector3(0, 0, 0),
+		Vector3(1, 1, 1),
+		Vector3(1, 1, 1),
+		insert);
+	//player->Init("DATA\\CHR\\ECCMAN\\ECCMAN.IEM");
+	//player->SetPos(Vector3(10.0f, 0.0f, 0.0f));//位置決定
+	//player->SetScale(Vector3(0.05f, 0.05f, 0.05f));//スケール設定
+	//player->SetAngle(Vector3(0.05f, 0.05f, 0.05f));//向き
 
 	//	敵初期化
 
+	obj_manager.Initialize();
 
 	return true;
 }

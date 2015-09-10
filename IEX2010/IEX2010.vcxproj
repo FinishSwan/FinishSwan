@@ -102,7 +102,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\BaseObj.cpp" />
     <ClCompile Include="source\camera.cpp" />
+    <ClCompile Include="source\ObjectManager.cpp" />
     <ClCompile Include="source\Player.cpp" />
     <ClCompile Include="source\sceneMain.cpp" />
     <ClCompile Include="source\system\Framework.cpp" />
@@ -128,7 +130,9 @@
   <ItemGroup>
     <ClInclude Include="source\BaseObj.h" />
     <ClInclude Include="source\camera.h" />
+    <ClInclude Include="source\ObjectManager.h" />
     <ClInclude Include="source\Player.h" />
+    <ClInclude Include="source\Singleton.h" />
     <ClInclude Include="source\system\Framework.h" />
     <ClInclude Include="source\system\Scene.h" />
     <ClInclude Include="source\sceneMain.h" />

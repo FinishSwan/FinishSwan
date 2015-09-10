@@ -2,6 +2,10 @@
 #include	"Framework.h"
 #include	"sceneMain.h"
 
+#define _CRTDBG_MAP_ALLOC
+
+#include <crtdbg.h>
+
 //*****************************************************************************************************************************
 //
 //
@@ -106,6 +110,8 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 	if( GetAsyncKeyState(VK_CONTROL)&0x8000 ) bFullScreen = TRUE;
 
+	//ÉÅÉÇÉäÉäÅ[ÉNåüèo
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	hWnd = InitWindow(hInstance, nCmdShow);
 	InitApp(hWnd);
 
