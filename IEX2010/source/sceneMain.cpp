@@ -3,6 +3,7 @@
 #include	"Player.h"
 #include	"camera.h"
 #include	"Wave.h"
+#include	"BallObj.h"
 #include	"InputManager.h"
 
 #include	"ScrConverter.h"
@@ -24,6 +25,8 @@ iexMesh* stage = NULL;
 
 //　プレイヤー用
 Player*		player = NULL;
+
+Ball*		ball = NULL;
 
 Wave*		wave = NULL;
 
@@ -58,6 +61,8 @@ bool sceneMain::Initialize()
 	stage = new iexMesh("DATA\\BG\\STAGE\\STAGE01.X");
 	iex3DObj* insert = new iex3DObj("DATA\\CHR\\ECCMAN\\ECCMAN.IEM");
 
+	iexMesh* insert_ball = new iexMesh("DATA\\IMO\\Ball.IMO");
+
 	//	プレイヤー初期化
 	player = new Player(1,
 		0.3,
@@ -66,6 +71,14 @@ bool sceneMain::Initialize()
 		Vector3(0.05f, 0.05f, 0.05f),
 		Vector3(1, 1, 1),
 		insert);
+
+	ball = new Ball(1,
+		0.3,
+		Vector3(0, 0, 0),
+		Vector3(0, 0, 0),
+		Vector3(0.05f, 0.05f, 0.05f),
+		Vector3(1, 1, 1),
+		insert_ball);
 	//player->Init("DATA\\CHR\\ECCMAN\\ECCMAN.IEM");
 	//player->SetPos(Vector3(10.0f, 0.0f, 0.0f));//位置決定
 	//player->SetScale(Vector3(0.05f, 0.05f, 0.05f));//スケール設定
@@ -81,6 +94,8 @@ bool sceneMain::Initialize()
 
 	
 	obj_manager.InsertObject(player);
+	obj_manager.InsertObject(ball);
+
 	return true;
 }
 
@@ -113,6 +128,10 @@ void	sceneMain::Update()
 	Vector3 ct = camera->GetTarget();
 	player->Move(cp,ct);
 
+	Vector3 forward(sinf(player->GetAngle().y), .0f, cosf(player->GetAngle().y));
+	if (KEY_Get(KEY_B)==3)
+		ball->Ball_Start(player->GetPos() + Vector3(0, 7, 0), forward * 3.0f);
+
 	obj_manager.Update();
 
 	if (InputManager::GetMouseButton(0) == KEY_STATE_PRESSED)
@@ -121,7 +140,8 @@ void	sceneMain::Update()
 		wave->Start_Wave(camera->GetPos(), camera->GetForward());
 	}
 		
-	
+
+
 	//波更新
 	wave->Update();
 	//	敵更新

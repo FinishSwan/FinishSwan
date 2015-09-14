@@ -36,8 +36,16 @@ void	Wave::Update()
 	float rate = RestTime / MaxTime;
 	//ƒpƒ‰ƒ[ƒ^Ý’è
 
-	Wave_Setting_Param(Offset,36.0f,1.2f,7.0f,400.0f,13.0f);
+	float WaveSpeed =300.0f;
+	float WavePower = 20.0f;
+	float WaveLoopLength = 80.0f;
+	float WaveLength = 300.0f;
+	float WaveMaxTime = 1.4f;
+	float WaveMultiple = WaveSpeed / WaveLoopLength;
+	float WaveLossTime = WavePower / (WaveLoopLength / WaveSpeed);
 
+
+	Wave_Setting_Param(Offset, WaveLossTime, WaveMaxTime, WaveMultiple, WaveSpeed, WavePower);
 	//shader->SetValue("WaveLangth", rate *MaxLength);
 	//shader->SetValue("WavePower", rate *MaxPower);
 	static float off = .0f;

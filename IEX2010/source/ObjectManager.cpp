@@ -133,7 +133,7 @@ void	ObjectManager::Update()
 	{
 		if (!it)
 			continue;
-		it->Update();
+		it->Base_Update();
 	}
 }
 

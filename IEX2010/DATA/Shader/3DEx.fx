@@ -22,6 +22,13 @@ float WaveLossTime = .0f;
 float WaveMaxTime = 1.0f;
 float WaveTime = .0f;
 
+float PowerSlerpBegin = -3.8f;
+float PowerSlerpEnd = 20.8f;
+
+
+float3	PaintPos;
+float		PaintRange;
+
 float WavePower = .8f;
 float3 WaveColor = { .0f, .0f, .0f };
 float WaveMul = 1.3f;
@@ -129,6 +136,14 @@ struct VS_OUTPUT_WAVE
 	float3 vE	:TEXCOORD2;
 };
 
+struct VS_OUTPUT_PAINT
+{
+	float4 Pos		:POSITION;
+	float2 Tex		:TEXCOORD0;
+	float3 vPos		:TEXCOORD1;
+
+};
+
 
 
 //**************************************************************************************************
@@ -232,6 +247,12 @@ float4 PS_White(float4 Pos:POSITION) :COLOR
 	return float4(1,1,1,1);
 }
 
+float4 PS_Black(float4 Pos:POSITION) : COLOR
+{
+	return float4(0, 0, 0, 1);
+}
+
+
 VS_OUTPUT_WAVE VS_Wave(VS_INPUT_BUMP In)
 {
 	VS_OUTPUT_WAVE Out = (VS_OUTPUT_WAVE)0;
@@ -271,6 +292,30 @@ VS_OUTPUT_WAVE VS_Wave(VS_INPUT_BUMP In)
 
 }
 
+VS_OUTPUT_PAINT VS_Paint(VS_BASIC In)
+{
+	VS_OUTPUT_PAINT Out = (VS_OUTPUT_PAINT)0;
+
+
+	Out.Pos = mul(In.Pos, Projection);
+
+	Out.Tex = In.Tex;
+
+	float4 P = mul(In.Pos, TransMatrix);
+
+	Out.vPos = P.xyz;
+
+	return Out;
+}
+
+float4 PS_Paint(VS_OUTPUT_PAINT In) : COLOR
+{
+	float dist = length(PaintPos - In.vPos);
+	if (dist < PaintRange)
+		return tex2D(DecaleSamp, In.Tex);
+	return float4(1, 1, 1, 1);
+}
+
 float WaveHeight(float Length)
 {
 	float EmitTime = WaveTime - (Length / WaveSpeed);
@@ -279,11 +324,30 @@ float WaveHeight(float Length)
 	float WaveCycle = sin(EmitTime * WaveMul + WaveOffSet) * -0.5f - 0.5f;
 	float WorkWavePower = WavePower;
 
+
 	//éûä‘å∏êä
 	WorkWavePower *= 1.0f - (EmitTime / WaveMaxTime);
 
-	//ãóó£å∏êä
-	WorkWavePower -= WaveLossTime * (Length / WaveSpeed);
+		float PowerLostDist = WorkWavePower / (WaveLossTime / WaveSpeed);
+		float PowerSlerpBeginPos = PowerLostDist + PowerSlerpBegin;
+		float PowerSlerpEndPos = PowerLostDist + PowerSlerpEnd;
+		float PowerSlerpBeginValue = WorkWavePower - WaveLossTime * (PowerSlerpBeginPos / WaveSpeed);
+
+		float rate = max(.0f, 1.0f - (Length - PowerSlerpBeginPos) / (PowerSlerpEnd - PowerSlerpBegin));
+
+		if (rate > 1.0f)
+		{
+			//ãóó£å∏êä
+			WorkWavePower -= WaveLossTime * (Length / WaveSpeed);
+		}
+		else
+		{
+			WorkWavePower = PowerSlerpBeginValue * rate * rate;
+		}
+
+
+	////ãóó£å∏êä
+	//WorkWavePower -= WaveLossTime * (Length / WaveSpeed);
 
 	WorkWavePower = max(WorkWavePower, .0f);
 
@@ -329,7 +393,7 @@ float4 PS_Wave(VS_OUTPUT_WAVE In) : COLOR
 
 	dist = length(pos.xyz - WavePos.xyz);
 
-	float adjust = 0.0001f;
+	float adjust = 0.001f;
 
 	//h = (sin((dist + WaveOffSet) * WaveMul) + 1.0f) * 0.5f *WavePower;
 	//h *= max(0, 1.0 - dist / WaveLangth);
@@ -729,4 +793,39 @@ technique	white
 		PixelShader = compile ps_2_0 PS_White();
 	}
 }
+
+technique	black
+{
+	pass P0
+	{
+		AlphaBlendEnable = true;
+		BlendOp = Add;
+		SrcBlend = SrcAlpha;
+		DestBlend = InvSrcAlpha;
+		ZWriteEnable = true;
+		CullMode = CCW;
+		ZEnable = true;
+
+		VertexShader = compile vs_2_0 VS_White();
+		PixelShader = compile ps_2_0 PS_Black();
+	}
+}
+
+technique	paint
+{
+	pass P0
+	{
+		AlphaBlendEnable = true;
+		BlendOp = Add;
+		SrcBlend = SrcAlpha;
+		DestBlend = InvSrcAlpha;
+		ZWriteEnable = true;
+		CullMode = CCW;
+		ZEnable = true;
+
+		VertexShader = compile vs_2_0 VS_Paint();
+		PixelShader = compile ps_2_0 PS_Paint();
+	}
+}
+
 

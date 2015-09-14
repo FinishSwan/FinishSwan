@@ -102,6 +102,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\BallObj.cpp" />
     <ClCompile Include="source\BaseObj.cpp" />
     <ClCompile Include="source\camera.cpp" />
     <ClCompile Include="source\InputManager.cpp" />
@@ -131,6 +132,7 @@
     <ClCompile Include="source\Wave.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\BallObj.h" />
     <ClInclude Include="source\BaseObj.h" />
     <ClInclude Include="source\camera.h" />
     <ClInclude Include="source\InputManager.h" />
