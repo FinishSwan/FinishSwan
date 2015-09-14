@@ -26,7 +26,7 @@ iexShader::iexShader( char* filename )
 	hr = D3DXCreateEffectFromFile( lpDevice, fname, NULL, NULL, 0 , NULL, &m_pShader, &pErr );
 	if( FAILED(hr) )
 	{
-		char	szBuffer[512];
+		char	szBuffer[1024];
 		sprintf(szBuffer,"\terrors: %s\n", (char*)pErr->GetBufferPointer() );
 		OutputDebugString(szBuffer);
 		return;

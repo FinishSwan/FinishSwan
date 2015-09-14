@@ -6,13 +6,17 @@ private:
 protected:
 	Vector3 pos;		//ˆÊ’u
 	Vector3 angle;		//Œü‚«
+	Vector3 forward;	//‘O•ûŒü
 	Vector3 target;		//’‹“_
+	float length;		//‹——£
 	static const int max = 100;	//Å‘å‹——£
 	static const int min = 10;	//Å’á‹——£
 public:
 	Camera();
 	~Camera();
 	void Directional();
+	void Rotate();
+	void Length_Update();
 	
 	void Update();
 	
@@ -33,6 +37,7 @@ public:
 
 	Vector3 GetPos(){ return pos; }
 	Vector3 GetTarget(){ return target; }
+	Vector3 GetForward(){ return forward; }
 
 
 };

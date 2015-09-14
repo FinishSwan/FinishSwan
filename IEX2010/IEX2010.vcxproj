@@ -102,9 +102,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\BaseObj.cpp" />
     <ClCompile Include="source\camera.cpp" />
+    <ClCompile Include="source\InputManager.cpp" />
     <ClCompile Include="source\Player.cpp" />
     <ClCompile Include="source\sceneMain.cpp" />
+    <ClCompile Include="source\ScrConverter.cpp" />
     <ClCompile Include="source\system\Framework.cpp" />
     <ClCompile Include="source\system\System.cpp" />
     <ClCompile Include="source\system\WinMain.cpp" />
@@ -124,16 +127,20 @@
     <ClCompile Include="IEX\IEX_System.cpp" />
     <ClCompile Include="IEX\IEX_Texture.cpp" />
     <ClCompile Include="IEX\IEX_View.cpp" />
+    <ClCompile Include="source\Wave.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\BaseObj.h" />
     <ClInclude Include="source\camera.h" />
+    <ClInclude Include="source\InputManager.h" />
     <ClInclude Include="source\Player.h" />
+    <ClInclude Include="source\ScrConverter.h" />
     <ClInclude Include="source\system\Framework.h" />
     <ClInclude Include="source\system\Scene.h" />
     <ClInclude Include="source\sceneMain.h" />
     <ClInclude Include="source\system\System.h" />
     <ClInclude Include="IEX\iextreme.h" />
+    <ClInclude Include="source\Wave.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

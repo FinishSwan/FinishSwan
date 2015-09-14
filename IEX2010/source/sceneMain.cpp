@@ -2,7 +2,10 @@
 #include	"system/system.h"
 #include	"Player.h"
 #include	"camera.h"
+#include	"Wave.h"
+#include	"InputManager.h"
 
+#include	"ScrConverter.h"
 #include	"sceneMain.h"
 
 //*****************************************************************************************************************************
@@ -19,6 +22,8 @@ iexMesh* stage = NULL;
 
 //@ƒvƒŒƒCƒ„[—p
 Player*		player = NULL;
+
+Wave*		wave = NULL;
 
 
 //*****************************************************************************************************************************
@@ -60,6 +65,9 @@ bool sceneMain::Initialize()
 
 	//	“G‰Šú‰»
 
+	//”g‰Šú‰»
+	wave = new Wave();
+
 
 	return true;
 }
@@ -69,6 +77,7 @@ sceneMain::~sceneMain()
 	delete camera;
 	delete player;
 	delete stage;
+	delete wave;
 
 }
 
@@ -82,7 +91,7 @@ sceneMain::~sceneMain()
 void	sceneMain::Update()
 {
 	//	ƒJƒƒ‰XV
-	Vector3 p = player->GetPos();
+	Vector3 p = player->GetPos() + Vector3(0,7,0);
 	camera->SetTarget(p);
 	camera->Update();
 
@@ -92,9 +101,21 @@ void	sceneMain::Update()
 	player->Move(cp,ct);
 	player->Update();
 
+	if (InputManager::GetMouseButton(0) == KEY_STATE_PRESSED)
+	{
+		//wave->Start_Wave(player->GetPos() + Vector3(0, 4, 0), Vector3(sinf(player->GetAngle().y), .0f, cosf(player->GetAngle().y)));
+		wave->Start_Wave(camera->GetPos(), camera->GetForward());
+	}
+		
 	
-
+	//”gXV
+	wave->Update();
 	//	“GXV
+
+	InputManager::Update();
+
+	SetCursorPos(100, 200);
+
 }
 
 //*****************************************************************************************************************************
@@ -107,14 +128,19 @@ void	sceneMain::Render()
 {
 	//	‰æ–ÊƒNƒŠƒA
 	camera->Activate();
-	camera->Clear();
+	camera->Clear(0xFFFFFFFF);
+	shader->SetValue("ViewPos", camera->GetPos());
 
 	//	ƒXƒe[ƒW•`‰æ
-	stage->Render();
+	if (!wave->IsRender(stage))
+		stage->Render(shader, "white");
 
 	//	ƒvƒŒƒCƒ„[•`‰æ
 	player->Render();
 
+
+	//”g•`‰æ
+	wave->Render();
 	//	“G•`‰æ
 
 }

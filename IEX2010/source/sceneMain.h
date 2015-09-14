@@ -17,4 +17,7 @@ public:
 	void Render();	//	描画
 };
 
+//テスト用
+extern iexMesh* stage;
+
 
