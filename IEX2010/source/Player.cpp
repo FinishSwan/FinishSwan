@@ -17,7 +17,6 @@ Player::~Player()
 
 bool Player::Init(char*filename)
 {
-	//obj = new iex3DObj(filename);
 	return true;
 }
 
@@ -40,6 +39,7 @@ void Player::Move(Vector3 cpos,Vector3 ctarget)
 	else{
 		SetMotion(0);
 	}
+
 	//Œã‚ë
 	if (GetKeyState('S') < 0)
 	{

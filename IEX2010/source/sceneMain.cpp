@@ -51,7 +51,6 @@ bool sceneMain::Initialize()
 
 	//	ステージ読み込み
 	stage = new iexMesh("DATA\\BG\\STAGE\\STAGE01.X");
-
 	iex3DObj* insert = new iex3DObj("DATA\\CHR\\ECCMAN\\ECCMAN.IEM");
 
 	//	プレイヤー初期化

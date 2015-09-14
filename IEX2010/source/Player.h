@@ -27,5 +27,6 @@ public:
 	//void SetTarget(const Vector3&target){ this->SetTarget->target; }
 	int RayPick(Vector3* out, Vector3* pos, Vector3* vec, float *Dist)override;
 	void Collision(const Vector3& hit_position, BaseObjct* hit_object)override;
+
 };
 
