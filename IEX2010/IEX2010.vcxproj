@@ -105,6 +105,7 @@
     <ClCompile Include="source\BallObj.cpp" />
     <ClCompile Include="source\BaseObj.cpp" />
     <ClCompile Include="source\camera.cpp" />
+    <ClCompile Include="source\Fieldobject.cpp" />
     <ClCompile Include="source\InputManager.cpp" />
     <ClCompile Include="source\ObjectManager.cpp" />
     <ClCompile Include="source\Player.cpp" />
@@ -135,6 +136,7 @@
     <ClInclude Include="source\BallObj.h" />
     <ClInclude Include="source\BaseObj.h" />
     <ClInclude Include="source\camera.h" />
+    <ClInclude Include="source\Fieldobject.h" />
     <ClInclude Include="source\InputManager.h" />
     <ClInclude Include="source\ObjectManager.h" />
     <ClInclude Include="source\Player.h" />
