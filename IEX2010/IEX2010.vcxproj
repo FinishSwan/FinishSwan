@@ -110,6 +110,7 @@
     <ClCompile Include="source\ObjectManager.cpp" />
     <ClCompile Include="source\Player.cpp" />
     <ClCompile Include="source\sceneMain.cpp" />
+    <ClCompile Include="source\sceneTitle.cpp" />
     <ClCompile Include="source\ScrConverter.cpp" />
     <ClCompile Include="source\system\Framework.cpp" />
     <ClCompile Include="source\system\System.cpp" />
@@ -140,6 +141,7 @@
     <ClInclude Include="source\InputManager.h" />
     <ClInclude Include="source\ObjectManager.h" />
     <ClInclude Include="source\Player.h" />
+    <ClInclude Include="source\sceneTitle.h" />
     <ClInclude Include="source\ScrConverter.h" />
     <ClInclude Include="source\Singleton.h" />
     <ClInclude Include="source\system\Framework.h" />
