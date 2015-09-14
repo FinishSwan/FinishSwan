@@ -1,7 +1,7 @@
 #include	"iextreme.h"
 #include	"Framework.h"
 #include	"sceneMain.h"
-
+#include    "..\sceneTitle.h"
 #define _CRTDBG_MAP_ALLOC
 
 #include <crtdbg.h>
@@ -35,7 +35,8 @@ BOOL	InitApp( HWND hWnd )
 	//	メインフレームワーク生成
 	MainFrame = new Framework();
 	//	初期シーン登録
-	MainFrame->ChangeScene( new sceneMain() );
+	//MainFrame->ChangeScene( new sceneMain() );
+    MainFrame->ChangeScene(new sceneTitle());
 
 	return TRUE;
 }
