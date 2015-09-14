@@ -69,9 +69,10 @@ bool sceneMain::Initialize()
 	iexMesh* insert_ball = new iexMesh("DATA\\IMO\\Ball.IMO");
 
 	//オブジェクト読み込み
-	iexMesh* insert_mesh = new iexMesh("DATA\\IMO\\desk.IMO");
+	//iexMesh* insert_mesh = new iexMesh("DATA\\IMO\\desk.IMO");
+    iexMesh* insert_mesh = new iexMesh("DATA\\BG\\stage\\stage01.x");
 	iexMesh* insert_mesh2 = new iexMesh("DATA\\IMO\\hondana.IMO");
-	iexMesh* insert_mesh3= new iexMesh("DATA\\IMO\\notePC.IMO");
+//	iexMesh* insert_mesh3= new iexMesh("DATA\\IMO\\notePC.IMO");
 	
 
 	//オブジェクト初期化
@@ -79,27 +80,27 @@ bool sceneMain::Initialize()
 
 	desk = new Fileobject(1,
 		0.3,
-		Vector3(5, 10, 1),
-		Vector3(8, 0, 0),
+		Vector3(5, 0, 0),
+		Vector3(0, 0, 0),
 		Vector3(1, 1, 1),
 		Vector3(1, 1, 1),
 		insert_mesh);
 
 	hondana = new Fileobject(1,
 		0.3,
-		Vector3(20, 10, 30),
+		Vector3(2, 1, 3),
 		Vector3(70, 0, 0),
 		Vector3(1, 1, 1),
 		Vector3(1, 1, 1),
 		insert_mesh2);
 
-	notePC = new Fileobject(1,
-		0.3,
-		Vector3(-20, 10, 0),
-		Vector3(0, 0, 0),
-		Vector3(1, 1, 1),
-		Vector3(1, 1, 1),
-		insert_mesh3);
+	//notePC = new Fileobject(1,
+	//	0.3,
+	//	Vector3(-20, 10, 0),
+	//	Vector3(0, 0, 0),
+	//	Vector3(1, 1, 1),
+	//	Vector3(1, 1, 1),
+	//	insert_mesh3);
 
 	//	プレイヤー初期化
 	player = new Player(1,
@@ -132,11 +133,11 @@ bool sceneMain::Initialize()
 
 	
 	obj_manager.InsertObject(player);
-	obj_manager.InsertObject(ball);
+	//obj_manager.InsertObject(ball);
 
 	obj_manager.InsertObject(desk);
 	obj_manager.InsertObject(hondana);
-	obj_manager.InsertObject(notePC);
+	//obj_manager.InsertObject(notePC);
 	
 	iexParticle::Initialize("DATA\\particle.png", 1000);
 

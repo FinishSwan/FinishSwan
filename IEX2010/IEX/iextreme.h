@@ -205,6 +205,41 @@ inline float Vector3Dot( Vector& v1, Vector& v2 )
 	return v1.x*v2.x + v1.y*v2.y + v1.z*v2.z;
 }
 
+inline Vector3 Vector3MulMatrix(const Vector3& v, const Matrix& m)
+{
+    return Vector3(
+        v.x*m._11 + v.y*m._21 + v.z*m._31 + m._41,
+        v.x*m._12 + v.y*m._22 + v.z*m._32 + m._42,
+        v.x*m._13 + v.y*m._23 + v.z*m._33 + m._43
+        );
+}
+
+inline Vector3 Vector3MulMatrix3x3(const Vector3& v, const Matrix& m)
+{
+    return Vector3(
+        v.x*m._11 + v.y*m._21 + v.z*m._31,
+        v.x*m._12 + v.y*m._22 + v.z*m._32,
+        v.x*m._13 + v.y*m._23 + v.z*m._33
+        );
+}
+
+inline Vector3 Vector3MulMatrixDivW(const Vector3& v, const Matrix& m)
+{
+    Vector3 ret(
+        v.x*m._11 + v.y*m._21 + v.z*m._31 + m._41,
+        v.x*m._12 + v.y*m._22 + v.z*m._32 + m._42,
+        v.x*m._13 + v.y*m._23 + v.z*m._33 + m._43
+        );
+
+    float w = v.x*m._14 + v.y*m._24 + v.z*m._34 + m._44;
+    ret.x /= w;
+    ret.y /= w;
+    ret.z /= w;
+    return ret;
+}
+
+
+
 //*****************************************************************************
 //		çsóÒ
 //*****************************************************************************

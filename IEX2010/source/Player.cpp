@@ -136,8 +136,8 @@ float Player::StageWallBack ()
 
 	if (obj_manager.Collision_of_RayPick(&out,&p_pos,&vec,&dist,this)!=nullptr)
 	{
-	 if (pos.z<out.z-2.0f)
-		return out.z-2.0f;
+	 if (pos.z<out.z+2.0f)
+		return out.z+2.0f;
 	}
 	return	pos.z;
 }
@@ -186,10 +186,10 @@ float Player::StageWallLeft ()
 
 	if (obj_manager.Collision_of_RayPick(&out,&p_pos,&vec,&dist,this)!=nullptr)
 	{
-	 if (pos.x<out.x-2.0f)
-		return out.x-2.0f;
+	 if (pos.x<out.x+2.0f)
+		return out.x+2.0f;
 	}
-	return	pos.z;
+	return	pos.x;
 }
 
 bool Player::Update()
@@ -202,9 +202,9 @@ bool Player::Update()
 		int a = 0;
 
 	pos.z = StageWallFront();
-	//pos.z = StageWallBack();
+	pos.z = StageWallBack();
 	pos.x = StageWallRight();
-	//pos.x = StageWallLeft();
+	pos.x = StageWallLeft();
 
 	obj->SetPos(pos);
 	obj->SetScale(scale);

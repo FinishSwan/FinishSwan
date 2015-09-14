@@ -240,10 +240,14 @@ int	iexMesh::RayPick( Vector3* out, Vector3* pos, Vector3* vec, float *Dist )
 {
 	int		ret = -1;
 
-	if( vec->x == .0f && vec->z == .0f ) return RayPickUD( out, pos, vec, Dist );
+	//if( vec->x == .0f && vec->z == .0f ) return RayPickUD( out, pos, vec, Dist );
 
 	Vector3 p = *pos;
 	Vector3 vv = *vec;
+    Matrix inverse = TransMatrix;
+    D3DXMatrixInverse(&inverse, NULL, &TransMatrix);
+    p = Vector3MulMatrix(p, inverse);
+    vv = Vector3MulMatrix3x3(vv, inverse);
 
 	float neart = *Dist;
 	float dist = *Dist;
@@ -334,6 +338,8 @@ int	iexMesh::RayPick( Vector3* out, Vector3* pos, Vector3* vec, float *Dist )
 		ret = j;
 		neart = t;
 	}
+    *out = Vector3MulMatrix(*out, TransMatrix);
+    *vec = Vector3MulMatrix3x3(*vec, TransMatrix);
 	lpMesh->UnlockVertexBuffer();
 	lpMesh->UnlockIndexBuffer();
 	*Dist = neart;
