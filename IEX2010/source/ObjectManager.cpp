@@ -23,6 +23,8 @@ void	ObjectManager::Release()
 
 }
 
+
+
 bool	ObjectManager::InsertObject(BaseObjct* insert)
 {
 
@@ -63,7 +65,7 @@ BaseObjct* ObjectManager::Collision_of_RayPick(Vector3* out, Vector3* pos, Vecto
 
 		if (current_obj->RayPick(out, &start_pos, &ray_vec, &dist) != -1)
 		{
-			if (most_near < dist)
+			if (most_near > dist)
 			{
 				ret_object = current_obj;
 				most_near = dist;
@@ -73,7 +75,8 @@ BaseObjct* ObjectManager::Collision_of_RayPick(Vector3* out, Vector3* pos, Vecto
 			}
 		}
 	}
-	ret_object->Collision(ret_position, owner_object);
+	if (ret_object)
+		ret_object->Collision(ret_position, owner_object);
 	*out = ret_position;
 	*vec = ret_noraml;
 	*Dist3 = ret_dist;

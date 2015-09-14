@@ -3,7 +3,7 @@
 
 class BaseObjct;
 
-#define MAX_OBJECT 512
+#define MAX_OBJECT 10
 
 class ObjectManager : public Singleton<ObjectManager>
 {

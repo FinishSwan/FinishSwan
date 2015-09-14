@@ -7,6 +7,7 @@ class Player:public BaseObjct
 private:
 	 iex3DObj* obj;
 	 int state;//ÉÇÅ[ÉVÉáÉìóp
+	float outZ ;
 public:
 	Player(const float radius, const float adjust_h,
 		const Vector3& pos, const Vector3& angle,
@@ -14,8 +15,17 @@ public:
 		const Vector3& color, iex3DObj* insert_skinmesh);
 	~Player();
 	bool Init(char*filename);
-	void Move(Vector3 cpos,Vector3 ctarget);
+	void Move();
 	void SetMotion(int motion);
+
+	float StageWallFront();
+	float StageWallBack();
+	float StageWallRight();
+	float StageWallLeft();
+
+
+	void Rotate();
+
 	bool Update();
 	void Render();
 	

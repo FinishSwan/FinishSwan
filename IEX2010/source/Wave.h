@@ -13,5 +13,4 @@ public:
 	void Render();
 	bool IsRender(iexMesh* mesh);	//‚±‚ÌƒƒbƒVƒ…‚ğ”g‚Í•`‰æ‚·‚é‚©
 
-
 };
