@@ -63,7 +63,7 @@ bool sceneMain::Initialize()
 		0.3,
 		Vector3(0, 0, 0),
 		Vector3(0, 0, 0),
-		Vector3(1, 1, 1),
+		Vector3(0.05f, 0.05f, 0.05f),
 		Vector3(1, 1, 1),
 		insert);
 	//player->Init("DATA\\CHR\\ECCMAN\\ECCMAN.IEM");
@@ -71,21 +71,24 @@ bool sceneMain::Initialize()
 	//player->SetScale(Vector3(0.05f, 0.05f, 0.05f));//ƒXƒP[ƒ‹Ý’è
 	//player->SetAngle(Vector3(0.05f, 0.05f, 0.05f));//Œü‚«
 
+	//”g‰Šú‰»
+	wave = new Wave();
+
 	//	“G‰Šú‰»
 
 	obj_manager.Initialize();
 
-	//”g‰Šú‰»
-	wave = new Wave();
 
-
+	
+	obj_manager.InsertObject(player);
 	return true;
 }
 
 sceneMain::~sceneMain()
 {
+	obj_manager.Release();
 	delete camera;
-	delete player;
+	//delete player;
 	delete stage;
 	delete wave;
 
@@ -101,7 +104,7 @@ sceneMain::~sceneMain()
 void	sceneMain::Update()
 {
 	//	ƒJƒƒ‰XV
-	Vector3 p = player->GetPos() + Vector3(0,7,0);
+	Vector3 p =obj_manager.GetPlayer()->GetPos() + Vector3(0,7,0);
 	camera->SetTarget(p);
 	camera->Update();
 
@@ -109,7 +112,8 @@ void	sceneMain::Update()
 	Vector3 cp = camera->GetPos();
 	Vector3 ct = camera->GetTarget();
 	player->Move(cp,ct);
-	player->Update();
+
+	obj_manager.Update();
 
 	if (InputManager::GetMouseButton(0) == KEY_STATE_PRESSED)
 	{
@@ -146,9 +150,9 @@ void	sceneMain::Render()
 		stage->Render(shader, "white");
 
 	//	ƒvƒŒƒCƒ„[•`‰æ
-	player->Render();
+	/*player->Render();*/
 
-
+	obj_manager.Render();
 	//”g•`‰æ
 	wave->Render();
 	//	“G•`‰æ

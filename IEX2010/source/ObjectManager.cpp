@@ -7,11 +7,19 @@
 
 void	ObjectManager::Initialize()
 {
-	ZeroMemory(m_object_array, sizeof(BaseObjct)* MAX_OBJECT);
+	ZeroMemory(m_object_array, sizeof(BaseObjct*)* MAX_OBJECT);
 }
 
 void	ObjectManager::Release()
 {
+	for (auto it : m_object_array)
+	{
+		if (it)
+		{
+			delete it;
+			it = nullptr;
+		}
+	}
 
 }
 
@@ -117,4 +125,25 @@ BaseObjct* ObjectManager::Collision_of_Sphere(BaseObjct* owner_object, float* re
 
 	}
 	return ret_obj;
+}
+
+void	ObjectManager::Update()
+{
+	for (auto& it : m_object_array)
+	{
+		if (!it)
+			continue;
+		it->Update();
+	}
+}
+
+void	ObjectManager::Render()
+{
+	for (auto& it : m_object_array)
+	{
+		if (!it)
+			continue;
+		it->Render();
+	}
+
 }

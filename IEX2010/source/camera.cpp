@@ -5,8 +5,6 @@
 #include "InputManager.h"
 
 Camera::Camera() :pos(Vector3(0.0f, 10.0f, -20.0f)), angle(Vector3(0, 0, 0)), target(Vector3(0, 0, 0)), forward(Vector3(0, -1.0f, 1.0f)), length(30.0f)
-Camera::Camera() :pos(Vector3(0.0f, 10.0f, -20.0f)),angle(Vector3(0,0,0)), target(Vector3(0, 0, 0)),
-cpos(Vector3(20,10,20))
 {}
 
 Camera::~Camera()
