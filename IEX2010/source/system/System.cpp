@@ -1,6 +1,8 @@
 #include	"iextreme.h"
 #include	"system.h"
 
+#include	"InputManager.h"
+
 //*****************************************************************************************************************************
 //
 //
@@ -31,6 +33,14 @@ void	SYSTEM_Initialize()
 	//	シェーダー読み込み
 	shader = new iexShader("DATA\\SHADER\\3DEx.fx");
 	shader2D = new iexShader("DATA\\SHADER\\2D.fx");
+
+
+	//	入力マネージャー初期化
+	InputManager::Initialize();
+	//	入力マネージャー使用開始
+	InputManager::Begin();
+
+
 	//	パーティクルシステム初期化
 	iexParticle::Initialize("DATA\\PARTICLE.PNG", 10000 );
 }

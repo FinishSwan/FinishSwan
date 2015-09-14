@@ -6,8 +6,9 @@ private:
 protected:
 	Vector3 pos;		//位置
 	Vector3 angle;		//向き
+	Vector3 forward;	//前方向
 	Vector3 target;		//注視点
-	Vector3 cpos;
+	float length;		//距離
 	static const int max = 100;	//最大距離
 	static const int min = 10;	//最低距離
 public:
@@ -15,6 +16,8 @@ public:
 	~Camera();
 	void Move();//カメラ確認用
 	void Directional();
+	void Rotate();
+	void Length_Update();
 	
 	void Update();
 	
@@ -29,6 +32,7 @@ public:
 		angle.y = 0;
 	}
 	Vector3 GetTarget(){ return target; }
+	Vector3 GetForward(){ return forward; }
 
 
 };

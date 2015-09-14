@@ -13,6 +13,19 @@ float4x4 Projection;	//	変換行列
 
 float3	ViewPos;
 
+float3	WorldViewPos;
+float3 WavePos = { 0, 5, 0 };
+float WaveLangth = 15.0f;
+float WaveOffSet = 1.21;
+float WaveSpeed = .0f;
+float WaveLossTime = .0f;
+float WaveMaxTime = 1.0f;
+float WaveTime = .0f;
+
+float WavePower = .8f;
+float3 WaveColor = { .0f, .0f, .0f };
+float WaveMul = 1.3f;
+
 //------------------------------------------------------
 //		テクスチャサンプラー	
 //------------------------------------------------------
@@ -95,6 +108,27 @@ struct VS_INPUTL
     float4 Color  : COLOR0;
     float2 Tex	  : TEXCOORD0;
 };
+
+struct VS_INPUT_BUMP
+{
+	float4 Pos		:POSITION;
+	float3 Normal	:NORMAL;
+	float2 Tex		:TEXCOORD0;
+
+	float4 Color	: COLOR0;
+};
+
+struct VS_OUTPUT_WAVE
+{
+	float4 Pos		:POSITION;
+	float3 Normal	:NORMAL;
+	float4 Color	:COLOR0;
+
+	float2 Tex		:TEXCOORD0;
+	float3 vPos		:TEXCOORD1;
+	float3 vE	:TEXCOORD2;
+};
+
 
 
 //**************************************************************************************************
@@ -185,6 +219,142 @@ inline float4 Environment( float3 normal )
 
 	color = tex2D( EnvSamp, uv );
 	return color;
+}
+
+float4 VS_White(float4 Pos:POSITION):POSITION
+{
+	return mul(Pos, Projection);
+
+}
+
+float4 PS_White(float4 Pos:POSITION) :COLOR
+{
+	return float4(1,1,1,1);
+}
+
+VS_OUTPUT_WAVE VS_Wave(VS_INPUT_BUMP In)
+{
+	VS_OUTPUT_WAVE Out = (VS_OUTPUT_WAVE)0;
+
+
+	Out.Pos = mul(In.Pos, Projection);
+
+	Out.Tex = In.Tex;
+	Out.Color = In.Color;
+
+	float4 P = mul(In.Pos, TransMatrix);
+		float3x3	  mat = TransMatrix;
+		float3 N = mul(In.Normal, mat);
+
+		Out.vPos = P;
+
+	//頂点ローカル座標系算出
+	float3 vx;
+	float3 vy = { 0, 1, 0.001f };
+		vx = cross(vy, N);
+	vx = -normalize(vx);
+	vy = cross(N, vx);
+	vy = normalize(vy);
+	N = normalize(N);
+
+	float3 vP = P.xyz;
+		vP -= ViewPos;
+	vP = normalize(vP);
+
+	Out.vE.x = dot(vx, vP);
+	Out.vE.y = dot(vy, vP);
+	Out.vE.z = dot(N, vP);
+
+
+	Out.vE = N;
+	return Out;
+
+}
+
+float WaveHeight(float Length)
+{
+	float EmitTime = WaveTime - (Length / WaveSpeed);
+	if (EmitTime < -.00f)
+		return .0f;
+	float WaveCycle = sin(EmitTime * WaveMul + WaveOffSet) * -0.5f - 0.5f;
+	float WorkWavePower = WavePower;
+
+	//時間減衰
+	WorkWavePower *= 1.0f - (EmitTime / WaveMaxTime);
+
+	//距離減衰
+	WorkWavePower -= WaveLossTime * (Length / WaveSpeed);
+
+	WorkWavePower = max(WorkWavePower, .0f);
+
+	return WaveCycle * WorkWavePower;
+
+}
+
+float4 PS_Wave(VS_OUTPUT_WAVE In) : COLOR
+{
+	float4 OUT;
+	// ピクセル色決定
+	OUT.a = 1;
+
+	//float4 screen;
+	//screen.xy = In.vPos.xy * 2 - 1;
+	//screen.y = -screen.y;
+	//screen.z = In.vPos.z;
+	//screen.w = 1;
+
+	//float4 pos = mul(screen, InvProj);
+	//	pos.xyz /= pos.w;
+
+	float3 pos = In.vPos;
+
+
+	float dist = length(pos.xyz - WavePos.xyz);
+
+	//float h = (sin((dist + WaveOffSet) * WaveMul) + 1.0f) * 0.5f *WavePower;
+	//h *= max(0, 1.0 - dist / WaveLangth);
+
+	float h = WaveHeight(dist);
+
+	float3 E = normalize(In.vE);
+		float3 D = normalize(pos - ViewPos);
+
+		//法線取得
+
+		float3 Dot = dot(D, E);
+
+		D -= Dot * E;
+
+	pos.xyz += D * h * 2.0f;
+
+	dist = length(pos.xyz - WavePos.xyz);
+
+	float adjust = 0.0001f;
+
+	//h = (sin((dist + WaveOffSet) * WaveMul) + 1.0f) * 0.5f *WavePower;
+	//h *= max(0, 1.0 - dist / WaveLangth);
+
+	h = WaveHeight(dist);
+	//h = dist/100.0f;
+
+	//float h2 = (sin((dist + WaveOffSet) * WaveMul + adjust) + 1.0f) * 0.5f *WavePower;
+	//h2 *= max(0, 1.0 - dist / WaveLangth);
+
+	float h2 = WaveHeight(dist + adjust);
+
+	float2 vec;
+	//TODO サイン波のY成分取得
+	vec.y = abs(h2 - h) / adjust;
+	vec.x = 1.0f;
+	vec = normalize(vec);
+
+	float rate = abs(vec.x);
+	OUT.rgb = rate + (1 - rate) * WaveColor;
+	//OUT.rgb = h;
+
+
+
+	return OUT;
 }
 
 
@@ -524,5 +694,39 @@ technique lcopy_fx2
 		VertexShader = compile vs_3_0 VS_FullFX2();
 		PixelShader  = compile ps_3_0 PS_FullFX2();
     }
+}
+
+technique	wave
+{
+	pass P0
+	{
+		AlphaBlendEnable = true;
+		BlendOp = Add;
+		SrcBlend = SrcAlpha;
+		DestBlend = InvSrcAlpha;
+		ZWriteEnable = true;
+		CullMode = CCW;
+		ZEnable = true;
+
+		VertexShader = compile vs_3_0 VS_Wave();
+		PixelShader = compile ps_3_0 PS_Wave();
+	}
+}
+
+technique	white
+{
+	pass P0
+	{
+		AlphaBlendEnable = true;
+		BlendOp = Add;
+		SrcBlend = SrcAlpha;
+		DestBlend = InvSrcAlpha;
+		ZWriteEnable = true;
+		CullMode = CCW;
+		ZEnable = true;
+
+		VertexShader = compile vs_2_0 VS_White();
+		PixelShader = compile ps_2_0 PS_White();
+	}
 }
 

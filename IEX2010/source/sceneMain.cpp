@@ -2,7 +2,10 @@
 #include	"system/system.h"
 #include	"Player.h"
 #include	"camera.h"
+#include	"Wave.h"
+#include	"InputManager.h"
 
+#include	"ScrConverter.h"
 #include	"sceneMain.h"
 
 #include	"ObjectManager.h"
@@ -21,6 +24,8 @@ iexMesh* stage = NULL;
 
 //　プレイヤー用
 Player*		player = NULL;
+
+Wave*		wave = NULL;
 
 
 //*****************************************************************************************************************************
@@ -70,6 +75,10 @@ bool sceneMain::Initialize()
 
 	obj_manager.Initialize();
 
+	//波初期化
+	wave = new Wave();
+
+
 	return true;
 }
 
@@ -78,6 +87,7 @@ sceneMain::~sceneMain()
 	delete camera;
 	delete player;
 	delete stage;
+	delete wave;
 
 }
 
@@ -91,7 +101,7 @@ sceneMain::~sceneMain()
 void	sceneMain::Update()
 {
 	//	カメラ更新
-	Vector3 p = player->GetPos();
+	Vector3 p = player->GetPos() + Vector3(0,7,0);
 	camera->SetTarget(p);
 	camera->Update();
 
@@ -101,9 +111,21 @@ void	sceneMain::Update()
 	player->Move(cp,ct);
 	player->Update();
 
+	if (InputManager::GetMouseButton(0) == KEY_STATE_PRESSED)
+	{
+		//wave->Start_Wave(player->GetPos() + Vector3(0, 4, 0), Vector3(sinf(player->GetAngle().y), .0f, cosf(player->GetAngle().y)));
+		wave->Start_Wave(camera->GetPos(), camera->GetForward());
+	}
+		
 	
-
+	//波更新
+	wave->Update();
 	//	敵更新
+
+	InputManager::Update();
+
+	SetCursorPos(100, 200);
+
 }
 
 //*****************************************************************************************************************************
@@ -116,14 +138,19 @@ void	sceneMain::Render()
 {
 	//	画面クリア
 	camera->Activate();
-	camera->Clear();
+	camera->Clear(0xFFFFFFFF);
+	shader->SetValue("ViewPos", camera->GetPos());
 
 	//	ステージ描画
-	stage->Render();
+	if (!wave->IsRender(stage))
+		stage->Render(shader, "white");
 
 	//	プレイヤー描画
 	player->Render();
 
+
+	//波描画
+	wave->Render();
 	//	敵描画
 
 }

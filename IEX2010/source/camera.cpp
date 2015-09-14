@@ -2,6 +2,9 @@
 #include "Player.h"
 #include "camera.h"
 
+#include "InputManager.h"
+
+Camera::Camera() :pos(Vector3(0.0f, 10.0f, -20.0f)), angle(Vector3(0, 0, 0)), target(Vector3(0, 0, 0)), forward(Vector3(0, -1.0f, 1.0f)), length(30.0f)
 Camera::Camera() :pos(Vector3(0.0f, 10.0f, -20.0f)),angle(Vector3(0,0,0)), target(Vector3(0, 0, 0)),
 cpos(Vector3(20,10,20))
 {}
@@ -11,16 +14,31 @@ Camera::~Camera()
 
 void Camera::Directional()
 {
-	if (GetKeyState('I') < 0)cpos.y += 1.0f;
-	if (GetKeyState('K') < 0)cpos.y -= 1.0f;
-	if (GetKeyState('L') < 0)cpos.x += 1.0f;
-	if (GetKeyState('J') < 0)cpos.x -= 1.0f;
-	
-	pos = target + cpos;
+	pos = target - forward * length;
+}
+
+void Camera::Rotate()
+{
+	Vector3 right,up;
+	Vector3Cross(right, Vector3(0, 1, 0), forward);
+	right.Normalize();
+	Vector3Cross(up, forward,right);
+	up.Normalize();
+
+	forward += up * InputManager::GetMouseAxisY() * -0.007f;
+	forward += right * InputManager::GetMouseAxisX()* 0.007f;
+
+	//‘O•ûŒü‚Ì³‹K‰»
+		forward.Normalize();
 }
 
 void Camera::Update()
 {
+	Rotate();
+	//Length_Update();
+
+
+
 	Directional();
 	Set(pos, target);
 }
