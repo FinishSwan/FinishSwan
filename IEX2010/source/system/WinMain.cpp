@@ -4,6 +4,8 @@
 #include    "..\sceneTitle.h"
 #define _CRTDBG_MAP_ALLOC
 
+#include	"..\CP11Rand.h"
+
 #include <crtdbg.h>
 
 //*****************************************************************************************************************************
@@ -32,6 +34,7 @@ BOOL	InitApp( HWND hWnd )
 
 	//	システムの初期化
 	SYSTEM_Initialize();
+	RandomEngine::Initialize();
 	//	メインフレームワーク生成
 	MainFrame = new Framework();
 	//	初期シーン登録
@@ -114,7 +117,9 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	//メモリリーク検出
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	hWnd = InitWindow(hInstance, nCmdShow);
+
 	InitApp(hWnd);
+
 
 	//	メインループ
 	for(;;){

@@ -7,9 +7,10 @@ BaseObjct::BaseObjct(const float radius, const float adjust_h,
 		const Vector3& pos, 
 		const Vector3& angle,
 		const Vector3& scale,
-		const Vector3& color) :
+		const Vector3& color,
+		const TYPE type) :
 		pos(pos), scale(scale), angle(angle),
-		color(color), radius(radius), adjust_height(adjust_h), velocity(Vector3(0,0,0))
+		color(color), type(type),radius(radius), adjust_height(adjust_h), velocity(Vector3(0,0,0))
 		
 {
 

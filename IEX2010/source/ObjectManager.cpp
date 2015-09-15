@@ -42,7 +42,7 @@ bool	ObjectManager::InsertObject(BaseObjct* insert)
 }
 
 BaseObjct* ObjectManager::Collision_of_RayPick(Vector3* out, Vector3* pos, Vector3* vec, float *Dist3,
-	BaseObjct* owner_object)
+	BaseObjct* owner_object,BaseObjct::TYPE check_type)
 {
 
 	float most_near = FLT_MAX;
@@ -57,6 +57,9 @@ BaseObjct* ObjectManager::Collision_of_RayPick(Vector3* out, Vector3* pos, Vecto
 			continue;
 
 		if (current_obj == owner_object)
+			continue;
+
+		if (!current_obj->IsType(check_type))
 			continue;
 
 		Vector3 start_pos = *pos;
