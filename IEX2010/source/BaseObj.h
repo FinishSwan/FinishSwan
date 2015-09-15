@@ -25,6 +25,7 @@ public:
 	virtual void Render() = 0;
 	virtual int RayPick(Vector3* out, Vector3* pos, Vector3* vec, float *Dist) = 0;
 	virtual void Collision(const Vector3& hit_position, BaseObjct* hit_object) =0;
+	virtual void Wave_Render() = 0;
 
 	void Paint_Start(Vector3 pos);
 
@@ -49,7 +50,9 @@ public:
 	inline float GetRadius(){ return radius; }
 	inline float GetAdjust_height(){return adjust_height;}
 
+	bool IsPainted();
 
+	
 
 
 protected:
@@ -69,4 +72,5 @@ protected:
 
 	void Paint_Update();
 	bool Paint_Render(iexMesh* mesh);	//•`‰æ‚³‚ê‚È‚©‚Á‚½‚çfalse
+	void Wave_Render(iexMesh* mesh);	//”g‚Ì•`‰æ
 };

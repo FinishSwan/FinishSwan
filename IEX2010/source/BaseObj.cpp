@@ -10,7 +10,7 @@ BaseObjct::BaseObjct(const float radius, const float adjust_h,
 		const Vector3& color,
 		const TYPE type) :
 		pos(pos), scale(scale), angle(angle),
-		color(color), type(type),radius(radius), adjust_height(adjust_h), velocity(Vector3(0,0,0))
+		color(color), type(type), radius(radius), adjust_height(adjust_h), velocity(Vector3(0, 0, 0)), Painted(false)
 		
 {
 
@@ -25,7 +25,7 @@ void	BaseObjct::Paint_Start(Vector3 pos)
 {
 	PaintPos = pos;
 	PaintRange = .0f;
-	Painted = .0f;
+	Painted = true;
 }
 
 
@@ -50,4 +50,16 @@ bool	BaseObjct::Paint_Render(iexMesh* mesh)
 	mesh->Render(shader, "paint");
 
 	return true;
+}
+
+void	BaseObjct::Wave_Render(iexMesh* mesh)
+{
+	mesh->Render(shader, "wave");
+
+	return;
+}
+
+bool  BaseObjct::IsPainted()
+{
+	return Painted;
 }

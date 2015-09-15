@@ -1,6 +1,8 @@
 #include "iextreme.h"
 #include "Fieldobject.h"
 
+#include "system\System.h"
+
 Fileobject::Fileobject(const float radius, const float adjust_h,
 	const Vector3& pos, const Vector3& angle,
 	const Vector3& scale,
@@ -36,6 +38,12 @@ bool Fileobject::Update()
 
 void Fileobject::Render()
 {
-	mesh->Render();
+	if(!Paint_Render(mesh))
+		mesh->Render(shader,"white");
 }
 
+void Fileobject::Wave_Render()
+{
+	BaseObjct::Wave_Render(mesh);
+
+}

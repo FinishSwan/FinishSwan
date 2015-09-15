@@ -20,10 +20,10 @@ public:
 	void Move();
 	void SetMotion(int motion);
 
-	float StageWallFront();
-	float StageWallBack();
-	float StageWallRight();
-	float StageWallLeft();
+	float StageWallFront(Vector3* vec);
+	float StageWallBack(Vector3* vec);
+	float StageWallRight(Vector3* vec);
+	float StageWallLeft(Vector3* vec);
 
 
 	void Rotate();
@@ -39,6 +39,7 @@ public:
 	//void SetTarget(const Vector3&target){ this->SetTarget->target; }
 	int RayPick(Vector3* out, Vector3* pos, Vector3* vec, float *Dist)override;
 	void Collision(const Vector3& hit_position, BaseObjct* hit_object)override;
+	void Wave_Render()override;
 
 };
 

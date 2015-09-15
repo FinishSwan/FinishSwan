@@ -1,6 +1,7 @@
 #include	"iextreme.h"
 #include	"BaseObj.h"
 #include	"ObjectManager.h"
+#include	"Wave.h"
 
 #include	<vector>
 #include	<list>
@@ -149,7 +150,8 @@ void	ObjectManager::Render()
 	{
 		if (!it)
 			continue;
-		it->Render();
+		if(!wave->IsRender(it))
+			it->Render();
 	}
 
 }

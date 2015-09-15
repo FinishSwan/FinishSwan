@@ -22,6 +22,8 @@ float WaveLossTime = .0f;
 float WaveMaxTime = 1.0f;
 float WaveTime = .0f;
 
+float4 Color;
+
 float PowerSlerpBegin = -3.8f;
 float PowerSlerpEnd = 20.8f;
 
@@ -250,6 +252,10 @@ float4 PS_White(float4 Pos:POSITION) :COLOR
 float4 PS_Black(float4 Pos:POSITION) : COLOR
 {
 	return float4(0, 0, 0, 1);
+}
+float4 PS_Color(float4 Pos:POSITION) : COLOR
+{
+	return Color;
 }
 
 
@@ -810,6 +816,24 @@ technique	black
 		PixelShader = compile ps_2_0 PS_Black();
 	}
 }
+
+technique	color
+{
+	pass P0
+	{
+		AlphaBlendEnable = true;
+		BlendOp = Add;
+		SrcBlend = SrcAlpha;
+		DestBlend = InvSrcAlpha;
+		ZWriteEnable = true;
+		CullMode = CCW;
+		ZEnable = true;
+
+		VertexShader = compile vs_2_0 VS_White();
+		PixelShader = compile ps_2_0 PS_Color();
+	}
+}
+
 
 technique	paint
 {

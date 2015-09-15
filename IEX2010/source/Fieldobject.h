@@ -16,7 +16,7 @@ public:
 	void Render()override;
 	int RayPick(Vector3* out, Vector3* pos, Vector3* vec, float *Dist) override;
 	void Collision(const Vector3& hit_position, BaseObjct* hit_object) override;
-
+	void Wave_Render()override;
 
 private:
 	iexMesh* mesh;

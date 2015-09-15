@@ -1,7 +1,10 @@
 #include	"iextreme.h"
 #include	"system/Scene.h"
 #include	"sceneMain.h"
+#include	"BaseObj.h"
+#include	"ObjectManager.h"
 #include	"Wave.h"
+
 
 #define _USE_MATH_DEFINES
 #include	<cmath>
@@ -9,18 +12,61 @@
 #include	"system\System.h"
 
 
-void Wave::Start_Wave(Vector3 pos, Vector3 dir)
+void Wave::Start_Wave(Vector3 pos, Vector3 dir, float power, float length)
 {
-	Vector3 out;
+	if (RestTime > .0f)
+		return;
 	float Dist = 10000.0f;
-	if (stage->RayPick(&out, &pos, &dir, &Dist) != -1)
+	//コリジョンチェック
+	struct
 	{
-		HitObj = stage;
+		Vector3 out;
+		Vector3 vec;
+		float dist;
+		float length;
+		BaseObjct* ret;
+	}min, def, work;
+
+	def.vec = dir;
+	def.vec.Normalize();
+	def.dist = 10000.0f;
+	def.out = def.vec * def.dist;
+
+
+	BaseObjct::TYPE types[3] =
+	{
+		BaseObjct::TYPE::judge,
+		BaseObjct::TYPE::floor,
+		BaseObjct::TYPE::wall
+	};
+	for (size_t i = 0; i < 3; i++)
+	{
+		work = def;
+		work.ret = obj_manager.Collision_of_RayPick(&work.out, &pos, &work.vec, &work.dist, nullptr, types[i]);
+		work.length = (pos - work.out).Length();
+		if (i == 0 || work.length < min.length)
+		{
+			min = work;
+		}
+	}
+
+	if (min.length < 2.5f)
+	{
+		if (min.ret->IsPainted())
+			return;
+		HitObj = min.ret;
 		MaxTime = 1.0f;
 		RestTime = MaxTime;
 		Offset = .0f;
-		shader->SetValue("WavePos", out);
+		shader->SetValue("WavePos", min.out);
+		Power = power;
+		Length = length;
 	}
+
+	//if (stage->RayPick(&out, &pos, &dir, &Dist) != -1)
+	//{
+
+	//}
 
 
 
@@ -36,10 +82,10 @@ void	Wave::Update()
 	float rate = RestTime / MaxTime;
 	//パラメータ設定
 
-	float WaveSpeed =300.0f;
-	float WavePower = 20.0f;
-	float WaveLoopLength = 80.0f;
-	float WaveLength = 300.0f;
+	float WaveSpeed =150.0f;
+	float WavePower = /*10.0f;*/Power;
+	float WaveLoopLength = 40.0f;
+	float WaveLength = /*150.0f*/Length;
 	float WaveMaxTime = 1.4f;
 	float WaveMultiple = WaveSpeed / WaveLoopLength;
 	float WaveLossTime = WavePower / (WaveLoopLength / WaveSpeed);
@@ -105,11 +151,11 @@ void	Wave::Render()
 {
 
 	if (HitObj != nullptr)
-		HitObj->Render(shader, "wave");
+		HitObj->Wave_Render();
 }
 
 
-bool	Wave::IsRender(iexMesh* mesh)
+bool	Wave::IsRender(BaseObjct* mesh)
 {
 	return mesh == HitObj;
 }

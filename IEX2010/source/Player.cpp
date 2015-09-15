@@ -1,6 +1,9 @@
 #include "iextreme.h"
 #include "Player.h"
 #include	"ObjectManager.h"
+#include	"Wave.h"
+
+#include	"system/system.h"
 
 
 Player::Player(const float radius, const float adjust_h,
@@ -148,7 +151,7 @@ void Player::SetMotion(int motion)
 		obj->SetMotion(motion);
 }
 
-float Player::StageWallFront ()
+float Player::StageWallFront(Vector3* ptr_vec)
 {
 	Vector3  p_pos = pos;
 	Vector3 vec, out;
@@ -167,13 +170,14 @@ float Player::StageWallFront ()
 
 	if (obj_manager.Collision_of_RayPick(&out,&p_pos,&vec,&dist,this)!=nullptr)
 	{
+		*ptr_vec = vec;
 	 if (pos.z>out.z-2.0f)
 		return out.z-2.0f;
 	}
 	return	pos.z;
 }
 
-float Player::StageWallBack ()
+float Player::StageWallBack(Vector3* ptr_vec)
 {
 	Vector3  p_pos = pos;
 	Vector3 vec, out;
@@ -192,13 +196,14 @@ float Player::StageWallBack ()
 
 	if (obj_manager.Collision_of_RayPick(&out,&p_pos,&vec,&dist,this)!=nullptr)
 	{
+		*ptr_vec = vec;
 	 if (pos.z<out.z+2.0f)
 		return out.z+2.0f;
 	}
 	return	pos.z;
 }
 
-float Player::StageWallRight ()
+float Player::StageWallRight(Vector3* ptr_vec)
 {
 	Vector3  p_pos = pos;
 	Vector3 vec, out;
@@ -217,13 +222,14 @@ float Player::StageWallRight ()
 
 	if (obj_manager.Collision_of_RayPick(&out,&p_pos,&vec,&dist,this)!=nullptr)
 	{
+		*ptr_vec = vec;
 	 if (pos.x>out.x-2.0f)
 		return out.x-2.0f;
 	}
 	return	pos.x;
 }
 
-float Player::StageWallLeft ()
+float Player::StageWallLeft(Vector3* ptr_vec)
 {
 	Vector3  p_pos = pos;
 	Vector3 vec, out;
@@ -242,6 +248,7 @@ float Player::StageWallLeft ()
 
 	if (obj_manager.Collision_of_RayPick(&out,&p_pos,&vec,&dist,this)!=nullptr)
 	{
+		*ptr_vec = vec;
 	 if (pos.x<out.x+2.0f)
 		return out.x+2.0f;
 	}
@@ -250,18 +257,33 @@ float Player::StageWallLeft ()
 
 bool Player::Update()
 {
+	Vector3 BeforePos = pos;
 	Move();
 	Rotate();
 	pos += velocity;
 	
 	if (velocity.Length() > 0.1)
 		int a = 0;
+	
+	Vector3 normal = Vector3(0,0,0);
 
-	pos.z = StageWallFront();
-	pos.z = StageWallBack();
-	pos.x = StageWallRight();
-	pos.x = StageWallLeft();
+	pos.z = StageWallFront(&normal);
+	pos.z = StageWallBack(&normal);
+	pos.x = StageWallRight(&normal);
+	pos.x = StageWallLeft(&normal);
 
+	if (normal.Length() > 0.9f && velocity.Length() > 0.01f)
+	{
+		normal.y = .0f;
+		normal.Normalize();
+		Vector3 len = pos - BeforePos;
+		len.Normalize();
+		float dot = Vector3Dot(velocity, len);
+		float power = Vector3Dot(velocity, -normal);
+		velocity.Normalize();
+		velocity *= dot;
+		wave->Start_Wave(pos + Vector3(0, 4, 0), -normal, 5.0f + 6.0f * power, (5.0f + 6.0f * power) * 15.0f);
+	}
 	obj->SetPos(pos);
 	obj->SetScale(scale);
 	obj->SetAngle(angle);
@@ -282,7 +304,8 @@ void Player::DebugText()
 void Player::Render()
 {
 	DebugText();
-	obj->Render();
+	shader->SetValue("Color", D3DXVECTOR4(0.5f, 0.5f, 0.5f, 1.0f));
+	obj->Render(shader,"color");
 }
 
 int Player::RayPick(Vector3* out, Vector3* pos, Vector3* vec, float *Dist)
@@ -292,5 +315,10 @@ int Player::RayPick(Vector3* out, Vector3* pos, Vector3* vec, float *Dist)
 
 void Player::Collision(const Vector3& hit_position, BaseObjct* hit_object)
 {
+
+}
+void Player::Wave_Render()
+{
+	BaseObjct::Wave_Render(obj);
 
 }

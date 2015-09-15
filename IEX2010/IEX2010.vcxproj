@@ -142,7 +142,6 @@
   <ItemGroup>
     <ClInclude Include="source\BallObj.h" />
     <ClInclude Include="source\BaseObj.h" />
-    <ClInclude Include="source\BaseObject.h" />
     <ClInclude Include="source\camera.h" />
     <ClInclude Include="source\CP11Rand.h" />
     <ClInclude Include="source\EntryPoint.h" />

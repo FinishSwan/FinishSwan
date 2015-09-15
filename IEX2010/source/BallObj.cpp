@@ -1,6 +1,7 @@
 #include	"iextreme.h"
 #include	"BaseObj.h"
 #include	"BallObj.h"
+#include	"Wave.h"
 #include	"ObjectManager.h"
 
 #include	"system/system.h"
@@ -26,15 +27,47 @@ bool Ball::Update()
 	if (!enable)
 		return true;
 	//コリジョンチェック
-	Vector3 vec = move;
+	struct
+	{
+		Vector3 out;
+		Vector3 vec;
+		float dist;
+		float length;
+		BaseObjct* ret;
+	}min,def,work;
 
-	Vector3 MinOut;
+	def.vec = move;
+	def.vec.Normalize();
+	def.dist = 10000.0f;
+	def.out = def.vec * def.dist;
 
-	vec.Normalize();
 
-	float dist = 1000.0f;
+	BaseObjct::TYPE types[3] =
+	{
+		judge,
+		floor,
+		wall
+	};
+	for (size_t i = 0; i < 3; i++)
+	{
+		work = def;
+		work.ret = obj_manager.Collision_of_RayPick(&work.out, &pos, &work.vec, &work.dist, this, types[i]);
+		work.length = (pos - work.out).Length();
+		if (i == 0 || work.length < min.length)
+		{
+			min = work;
+		}
+	}
 
-	obj_manager.Collision_of_RayPick(&MinOut, &pos, &vec, &dist, this);
+	if (min.length < move.Length())
+	{
+		enable = false;
+		min.ret->Paint_Start(min.out);
+		if (wave->IsRender(min.ret))
+		{
+			wave->Reset();
+		}
+	}
 
 	pos += move;
 	move.y -= 9.8f/60.0f;

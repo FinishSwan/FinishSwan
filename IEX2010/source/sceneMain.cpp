@@ -76,7 +76,7 @@ bool sceneMain::Initialize()
 	//オブジェクト読み込み
 	//iexMesh* insert_mesh = new iexMesh("DATA\\IMO\\desk.IMO");
     iexMesh* insert_mesh = new iexMesh("DATA\\BG\\stage\\stage01.x");
-	iexMesh* insert_mesh2 = new iexMesh("DATA\\IMO\\hondana.IMO");
+	iexMesh* insert_mesh2 = new iexMesh("DATA\\IMO\\table_kai.IMO");
 //	iexMesh* insert_mesh3= new iexMesh("DATA\\IMO\\notePC.IMO");
 	
 
@@ -96,11 +96,11 @@ bool sceneMain::Initialize()
 	hondana = new Fileobject(1,
 		0.3,
 		Vector3(2, 1, 3),
-		Vector3(70, 0, 0),
+		Vector3(0, 0, 0),
 		Vector3(1, 1, 1),
 		Vector3(1, 1, 1),
 		BaseObjct::TYPE::judge,
-		insert_mesh2);
+		stage);
 
 	//notePC = new Fileobject(1,
 	//	0.3,
@@ -185,9 +185,9 @@ bool sceneMain::Initialize()
 	obj_manager.Initialize();
 
 	obj_manager.InsertObject(player);
-	//obj_manager.InsertObject(ball);
+	obj_manager.InsertObject(ball);
 
-	obj_manager.InsertObject(desk);
+	//obj_manager.InsertObject(desk);
 	obj_manager.InsertObject(hondana);
 	//obj_manager.InsertObject(notePC);
 
@@ -257,11 +257,10 @@ void	sceneMain::Update()
 	Vector3 m(0, 0, 0);
 	BaseObjct* test = obj_manager.Collision_of_RayPick(&out, &pos, &vec, &out_d, obj_manager.GetPlayer());
 
-	if (InputManager::GetMouseButton(0) == KEY_STATE_PRESSED)
-	{
-		//wave->Start_Wave(player->GetPos() + Vector3(0, 4, 0), Vector3(sinf(player->GetAngle().y), .0f, cosf(player->GetAngle().y)));
-		wave->Start_Wave(camera->GetPos(), camera->GetForward());
-	}
+	//if (InputManager::GetMouseButton(0) == KEY_STATE_PRESSED)
+	//{
+		//wave->Start_Wave(camera->GetPos(), camera->GetForward());
+	//}
 		
 
 
@@ -289,8 +288,8 @@ void	sceneMain::Render()
 	shader->SetValue("ViewPos", camera->GetPos());
 
 	//	ステージ描画
-	if (!wave->IsRender(stage))
-		stage->Render(shader, "white");
+	//if (!wave->IsRender(stage))
+	//	stage->Render(shader, "white");
 
 	//オブジェクト描画
 	//desk->Render();

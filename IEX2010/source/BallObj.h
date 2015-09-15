@@ -17,6 +17,7 @@ public:
 	bool Init(char*filename);
 	bool Update();
 	void Render();
+	void Wave_Render()override{};
 
 	void Ball_Start(Vector3 pos,Vector3 move);
 	//void SetTarget(const Vector3&target){ this->SetTarget->target; }
