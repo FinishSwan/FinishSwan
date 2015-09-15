@@ -6,7 +6,9 @@
 Player::Player(const float radius, const float adjust_h,
 		const Vector3& pos, const Vector3& angle,
 		const Vector3& scale,
-		const Vector3& color, iex3DObj* insert_skinmesh) :BaseObjct(radius,adjust_h,pos,angle,scale,color),
+		const Vector3& color,
+		const TYPE type,
+		iex3DObj* insert_skinmesh) :BaseObjct(radius,adjust_h,pos,angle,scale,color,type),
 obj(insert_skinmesh)
 {
 }
@@ -26,24 +28,74 @@ void Player::Move()
 	static float MAX_SPEED = 1;
 	static float MINI_SPEED = 0.01;
  	static float ACCELATION = 0.05f;
-	static float ブレーキ = 0.6f;
+	static float ブレーキ = 0.8f;
 
 	//カメラの前方向
 	Vector3 c_front(matView._13,0,matView._33);
 	c_front.Normalize();
+	//カメラの右方向
+	Vector3 c_right(matView._11, 0, matView._31);
+	c_right.Normalize();
 	
-
+	Vector3 temp = Vector3(0, 0, 0);
+	bool is_move = false;
 	if (KEY_Get(KEY_UP))
 	{
 		SetMotion(1);
-		velocity += c_front*ACCELATION;
+		temp += c_front;
+		is_move = true;
+		//if (velocity.Length() > MAX_SPEED)
+		//{
+		//	velocity.Normalize();
+		//	velocity *= MAX_SPEED;
+		//}
+	}
+	
+	if (KEY_Get(KEY_DOWN))
+	{
+		SetMotion(1);
+		temp -= c_front;
+		is_move = true;
+		////if (velocity.Length() > MAX_SPEED)
+		////{
+		////	velocity.Normalize();
+		////	velocity *= MAX_SPEED;
+		////}
+	}
+
+	if (KEY_Get(KEY_RIGHT))
+	{
+		SetMotion(1);
+		temp += c_right;
+		is_move = true;
+		//if (velocity.Length() > MAX_SPEED)
+		//{
+		//	velocity.Normalize();
+		//	velocity *= MAX_SPEED;
+		//}
+	}
+
+	if (KEY_Get(KEY_LEFT))
+	{
+		is_move = true;
+		SetMotion(1);
+		temp -= c_right;
 		if (velocity.Length() > MAX_SPEED)
 		{
 			velocity.Normalize();
 			velocity *= MAX_SPEED;
 		}
 	}
-	else
+	temp.Normalize();
+	temp *= ACCELATION;
+	velocity += temp;
+	if (velocity.Length() > MAX_SPEED)
+	{
+		velocity.Normalize();
+		velocity *= MAX_SPEED;
+	}
+
+	if (!is_move)
 	{
 		velocity *= ブレーキ;
 		if (velocity.Length() < MINI_SPEED)
@@ -53,11 +105,15 @@ void Player::Move()
 		}
 		SetMotion(0);
 	}
+
+
 	
 }
 
 void Player::Rotate()
 {
+	if (velocity.Length() <= 0.000000001)
+		return;
 		Vector3 rotate = Vector3(sinf(angle.y), 0, cosf(angle.y));
 		rotate.Normalize();
 		Vector3 v = velocity;
@@ -66,7 +122,7 @@ void Player::Rotate()
 		float naiseki = Vector3Dot(rotate, v);
 		naiseki = min(naiseki, 1);
 		naiseki = max(naiseki, -1);
-		
+
 		naiseki = acos(naiseki);
 		if (naiseki > 0.11f)
 		{
@@ -74,16 +130,16 @@ void Player::Rotate()
 		}
 		float gaiseki = (rotate.z*velocity.x) - (rotate.x*velocity.z);
 
-		if (KEY_Get(KEY_UP)){
-		if (gaiseki > .0f)
-		{
-			angle.y += naiseki;
-		}
+		//if (KEY_Get(KEY_UP)){
+			if (gaiseki > .0f)
+			{
+				angle.y += naiseki;
+			}
 
-		else{
-			angle.y -= naiseki;
-		}
-	}
+			else{
+				angle.y -= naiseki;
+			}
+		//}
 }
 
 void Player::SetMotion(int motion)

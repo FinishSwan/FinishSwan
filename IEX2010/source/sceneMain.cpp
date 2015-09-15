@@ -13,6 +13,8 @@
 
 #include	"ObjectManager.h"
 
+#include	"EntryPoint.h"
+
 //*****************************************************************************************************************************
 //
 //	グローバル変数
@@ -87,7 +89,9 @@ bool sceneMain::Initialize()
 		Vector3(0, 0, 0),
 		Vector3(1, 1, 1),
 		Vector3(1, 1, 1),
+		BaseObjct::TYPE::judge,
 		insert_mesh);
+
 
 	hondana = new Fileobject(1,
 		0.3,
@@ -95,6 +99,7 @@ bool sceneMain::Initialize()
 		Vector3(70, 0, 0),
 		Vector3(1, 1, 1),
 		Vector3(1, 1, 1),
+		BaseObjct::TYPE::judge,
 		insert_mesh2);
 
 	//notePC = new Fileobject(1,
@@ -108,10 +113,12 @@ bool sceneMain::Initialize()
 	//	プレイヤー初期化
 	player = new Player(1,
 		0.3,
-		Vector3(90.1783905, 0, 0),
+		//Vector3(90.1783905, 0, 0)
+		Vector3(0, 0, 0),
 		Vector3(0, 0, 0),
 		Vector3(0.05f, 0.05f, 0.05f),
 		Vector3(1, 1, 1),
+		BaseObjct::TYPE::player,
 		insert);
 
 	ball = new Ball(1,
@@ -119,12 +126,56 @@ bool sceneMain::Initialize()
 		Vector3(0, 0, 0),
 		Vector3(0, 0, 0),
 		Vector3(0.05f, 0.05f, 0.05f),
-		Vector3(1, 1, 1),
+		Vector3(1, 1, 1),BaseObjct::TYPE::judge,
 		insert_ball);
-	//player->Init("DATA\\CHR\\ECCMAN\\ECCMAN.IEM");
-	//player->SetPos(Vector3(10.0f, 0.0f, 0.0f));//位置決定
-	//player->SetScale(Vector3(0.05f, 0.05f, 0.05f));//スケール設定
-	//player->SetAngle(Vector3(0.05f, 0.05f, 0.05f));//向き
+	
+	
+	EntryPoint::Initialize();
+
+	Vector3 pos[10] =
+	{
+		Vector3(0, 0, 0),
+		Vector3(1, 0, 0),
+		Vector3(2, 0, 0),
+		Vector3(3, 0, 0),
+		Vector3(4, 0, 0),
+		Vector3(5, 0, 0),
+		Vector3(6, 0, 0),
+		Vector3(7, 0, 0),
+		Vector3(8, 0, 0),
+		Vector3(9, 0, 0),
+	};
+
+		Vector3 angle[10] =
+	{
+		Vector3(0, 0, 0),
+		Vector3(1, 0, 0),
+		Vector3(2, 0, 0),
+		Vector3(3, 0, 0),
+		Vector3(4, 0, 0),
+		Vector3(5, 0, 0),
+		Vector3(6, 0, 0),
+		Vector3(7, 0, 0),
+		Vector3(8, 0, 0),
+		Vector3(9, 0, 0),
+	};
+
+		for (int i = 0; i < 10; i++)
+		{
+			EntryPoint::Register(pos[i], angle[i]);
+		}
+
+
+		
+		for (int i = 0; i < 10; i++)
+		{
+			Vector3 p, a;
+			EntryPoint::GetPoint(&p, &a);
+			Vector3 temp;
+			temp = p;
+			temp = a;
+
+		}
 
 	//波初期化
 	wave = new Wave();
@@ -133,15 +184,22 @@ bool sceneMain::Initialize()
 
 	obj_manager.Initialize();
 
-
-	
 	obj_manager.InsertObject(player);
 	//obj_manager.InsertObject(ball);
 
 	obj_manager.InsertObject(desk);
 	obj_manager.InsertObject(hondana);
 	//obj_manager.InsertObject(notePC);
+
+
+	EntryPoint::Initialize();
+
+	//EntryPoint::Register(desk->GetPos(),desk->GetAngle());
+	//Vector3 desk_pos(0,0,0);
+	//Vector3 desk_angle(0,0,0);
+	//EntryPoint::GetPoint(&desk_pos,&desk_angle);
 	
+
 	iexParticle::Initialize("DATA\\particle.png", 1000);
 
 	return true;
@@ -154,6 +212,7 @@ sceneMain::~sceneMain()
 	delete stage;
 	delete wave;
 	iexParticle::Release();
+	EntryPoint::Release();
 
 }
 
@@ -197,7 +256,6 @@ void	sceneMain::Update()
 	//RayPick
 	Vector3 m(0, 0, 0);
 	BaseObjct* test = obj_manager.Collision_of_RayPick(&out, &pos, &vec, &out_d, obj_manager.GetPlayer());
-
 
 	if (InputManager::GetMouseButton(0) == KEY_STATE_PRESSED)
 	{

@@ -5,7 +5,8 @@ Fileobject::Fileobject(const float radius, const float adjust_h,
 	const Vector3& pos, const Vector3& angle,
 	const Vector3& scale,
 	const Vector3& color,
-	iexMesh* mesh) :BaseObjct(radius, adjust_h, pos, angle, scale, color),
+	const TYPE type,
+	iexMesh* mesh) :BaseObjct(radius, adjust_h, pos, angle, scale, color,type),
 	mesh(mesh)
 {
 }

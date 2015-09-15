@@ -1,9 +1,10 @@
 #pragma once
 #include	"Singleton.h"
-
+#include	"BaseObj.h"
 class BaseObjct;
 
 #define MAX_OBJECT 10
+enum BaseObjct::TYPE;
 
 class ObjectManager : public Singleton<ObjectManager>
 {
@@ -23,7 +24,7 @@ public :
 	BaseObjct* GetPlayer(){ return m_object_array[0]; }
 	
 	BaseObjct* Collision_of_RayPick(Vector3* out, Vector3* pos, Vector3* vec, float *Dist3,
-		BaseObjct* owner_object);
+		BaseObjct* owner_object,BaseObjct::TYPE check_type = BaseObjct::TYPE::judge);
 
 	BaseObjct* Collision_of_Sphere(BaseObjct* owner_object,float* ret_merikomi,Vector3* ret_merikomi_vec);
 

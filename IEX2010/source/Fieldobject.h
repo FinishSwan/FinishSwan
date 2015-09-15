@@ -9,6 +9,7 @@ public:
 		const Vector3& pos, const Vector3& angle,
 		const Vector3& scale,
 		const Vector3& color,
+		const TYPE type,
 		iexMesh* mesh);
 	~Fileobject();
 	bool Update()override;

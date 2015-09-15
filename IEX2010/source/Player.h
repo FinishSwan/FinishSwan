@@ -12,7 +12,9 @@ public:
 	Player(const float radius, const float adjust_h,
 		const Vector3& pos, const Vector3& angle,
 		const Vector3& scale,
-		const Vector3& color, iex3DObj* insert_skinmesh);
+		const Vector3& color,
+		const TYPE type,
+		iex3DObj* insert_skinmesh);
 	~Player();
 	bool Init(char*filename);
 	void Move();
