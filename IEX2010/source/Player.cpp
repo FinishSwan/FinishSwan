@@ -133,7 +133,7 @@ void Player::Rotate()
 		}
 		float gaiseki = (rotate.z*velocity.x) - (rotate.x*velocity.z);
 
-		//if (KEY_Get(KEY_UP)){
+		/*if (KEY_Get(KEY_UP)){*/
 			if (gaiseki > .0f)
 			{
 				angle.y += naiseki;
@@ -142,7 +142,7 @@ void Player::Rotate()
 			else{
 				angle.y -= naiseki;
 			}
-		//}
+		
 }
 
 void Player::SetMotion(int motion)

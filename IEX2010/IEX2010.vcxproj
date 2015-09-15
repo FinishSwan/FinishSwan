@@ -111,6 +111,7 @@
     <ClCompile Include="source\InputManager.cpp" />
     <ClCompile Include="source\ObjectManager.cpp" />
     <ClCompile Include="source\Player.cpp" />
+    <ClCompile Include="source\ScaleManager.cpp" />
     <ClCompile Include="source\sceneFailed.cpp" />
     <ClCompile Include="source\sceneFind.cpp" />
     <ClCompile Include="source\sceneMain.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="source\InputManager.h" />
     <ClInclude Include="source\ObjectManager.h" />
     <ClInclude Include="source\Player.h" />
+    <ClInclude Include="source\ScaleManager.h" />
     <ClInclude Include="source\sceneFailed.h" />
     <ClInclude Include="source\sceneFind.h" />
     <ClInclude Include="source\sceneSuccess.h" />
