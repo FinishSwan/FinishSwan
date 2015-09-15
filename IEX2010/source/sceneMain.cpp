@@ -67,8 +67,8 @@ bool sceneMain::Initialize()
 
 	FadeManager::FadeOut(1.0f);
 
-	//	ステージ読み込み
-	stage = new iexMesh("DATA\\BG\\STAGE\\STAGE01.X");
+	//	ステージ読み込みz
+	iexMesh* stage = new iexMesh("DATA\\BG\\STAGE\\STAGE01.X");
 	iex3DObj* insert = new iex3DObj("DATA\\CHR\\ECCMAN\\ECCMAN.IEM");
 
 	iexMesh* insert_ball = new iexMesh("DATA\\IMO\\Ball.IMO");
@@ -76,7 +76,7 @@ bool sceneMain::Initialize()
 	//オブジェクト読み込み
 	//iexMesh* insert_mesh = new iexMesh("DATA\\IMO\\desk.IMO");
     iexMesh* insert_mesh = new iexMesh("DATA\\BG\\stage\\stage01.x");
-	iexMesh* insert_mesh2 = new iexMesh("DATA\\IMO\\hondana.IMO");
+	iexMesh* insert_mesh2 = new iexMesh("DATA\\IMO\\tana.IMO");
 //	iexMesh* insert_mesh3= new iexMesh("DATA\\IMO\\notePC.IMO");
 	
 
