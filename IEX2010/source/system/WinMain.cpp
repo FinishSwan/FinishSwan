@@ -4,6 +4,7 @@
 #include    "..\sceneTitle.h"
 #define _CRTDBG_MAP_ALLOC
 
+#include	"Fade.h"
 #include <crtdbg.h>
 
 //*****************************************************************************************************************************
@@ -32,6 +33,9 @@ BOOL	InitApp( HWND hWnd )
 
 	//	システムの初期化
 	SYSTEM_Initialize();
+
+	FadeManager::FadeOut(5.0f);
+
 	//	メインフレームワーク生成
 	MainFrame = new Framework();
 	//	初期シーン登録

@@ -1,29 +1,29 @@
 #include    "iextreme.h"
-#include    "sceneTitle.h"
-#include    "sceneFind.h"
+#include    "sceneSuccess.h"
 #include    "sceneMain.h"
 
 #include	"Fade.h"
 
 
-sceneTitle::~sceneTitle()
+sceneSuccess::~sceneSuccess()
 {
     delete m_view;
-	delete m_title;
+	delete m_img;
 }
 
-bool sceneTitle::Initialize()
+bool sceneSuccess::Initialize()
 {
     m_view = new iexView();
-	m_title = new iex2DObj("DATA\\BG\\title.png");
+	m_img = new iex2DObj("DATA\\BG\\find.png");
 	Pushed = false;
 	m_view->Set(Vector3(0, 500, -500), Vector3(0, 0, 0));
 	iexLight::DirLight(0, &Vector3(0,0,1), 1.0f, 1.0f, 1.0f);
 	iexLight::SetFog(800, 1000, 0);
+	FadeManager::FadeOut(1.0f);
     return true;
 }
 
-void sceneTitle::Update()
+void sceneSuccess::Update()
 {
 	if (!Pushed)
 	{
@@ -36,15 +36,15 @@ void sceneTitle::Update()
 
 	if (Pushed && FadeManager::IsFadeEnd())
 	{
-		MainFrame->ChangeScene(new sceneFind());
+		MainFrame->ChangeScene(new sceneMain());
 	}
 }
 
-void sceneTitle::Render()
+void sceneSuccess::Render()
 {
 	//m_view->Activate();
     //m_view->Clear(0xFFFFFFFF);
 	
-	m_title->Render(0, 0, 1280, 720, 0, 0, 1280, 720);
+	m_img->Render(0, 0, 1280, 720, 0, 0, 1280, 720);
 }
 

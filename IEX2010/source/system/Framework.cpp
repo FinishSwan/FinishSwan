@@ -1,6 +1,7 @@
 #include	"iextreme.h"
 #include	"system.h"
 #include	"Framework.h"
+#include	"Fade.h"
 
 #include	"sceneMain.h"
 #include <time.h>
@@ -72,7 +73,7 @@ bool Framework::Update()
 	//	更新処理
 	KEY_SetInfo();
 	if( scene != NULL ) scene->Update();
-
+	FadeManager::Update();
 	return true;
 }
 
@@ -86,6 +87,7 @@ void Framework::Render()
 	iexSystem::BeginScene(); 
 	//	シーン描画
 	if( scene != NULL ) scene->Render();
+	FadeManager::Render();
 
 	//	フレーム表示
 //#ifdef _DEBUG

@@ -43,6 +43,8 @@ void	SYSTEM_Initialize()
 
 	//	パーティクルシステム初期化
 	iexParticle::Initialize("DATA\\PARTICLE.PNG", 10000 );
+
+	iexLight::SetFog(800, 1000, 0);
 }
 
 void	SYSTEM_Release()

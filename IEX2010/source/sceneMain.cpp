@@ -6,6 +6,7 @@
 #include	"BallObj.h"
 #include	"InputManager.h"
 #include   "Fieldobject.h"
+#include	"Fade.h"
 
 #include	"ScrConverter.h"
 #include	"sceneMain.h"
@@ -61,6 +62,8 @@ bool sceneMain::Initialize()
 	//view = new iexView();
 	camera = new Camera();
 	camera->SetAngle(Vector3(0.05f, 0.05f, 0.05f));
+
+	FadeManager::FadeOut(1.0f);
 
 	//	ステージ読み込み
 	stage = new iexMesh("DATA\\BG\\STAGE\\STAGE01.X");

@@ -2,10 +2,10 @@
 #include    "system\Scene.h"
 #include    "system\Framework.h"
 
-class sceneTitle : public Scene
+class sceneSuccess : public Scene
 {
 public :
-    ~sceneTitle();
+	~sceneSuccess();
     bool Initialize();
     void Update();
     void Render();
@@ -13,7 +13,7 @@ public :
 private :
 	bool Pushed;
     iexView* m_view;
-	iex2DObj* m_title;
+	iex2DObj* m_img;
 };
 
 extern Framework*	MainFrame;
