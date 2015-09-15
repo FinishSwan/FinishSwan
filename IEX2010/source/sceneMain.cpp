@@ -99,7 +99,6 @@ bool sceneMain::Initialize()
 		Vector3(70, 0, 0),
 		Vector3(0, 0, 0),
 		Vector3(1, 1, 1),
-		Vector3(1, 1, 1),
 		BaseObjct::TYPE::judge,
 		stage);
 
@@ -248,8 +247,7 @@ void	sceneMain::Update()
 	vec.Normalize();
 	float out_d=100;
 
-	if (KEY_Get(KEY_A))
-		iexParticle::Update();
+   
 
 	//‹…”»’è
 	//obj_manager.Collision_of_Sphere(obj_manager.GetPlayer(),&out_d,&out);
@@ -272,6 +270,7 @@ void	sceneMain::Update()
 	InputManager::Update();
 	
 	//SetCursorPos(100, 200);
+    iexParticle::Update();
 
 }
 
@@ -285,7 +284,7 @@ void	sceneMain::Render()
 {
 	//	‰æ–ÊƒNƒŠƒA
 	camera->Activate();
-	camera->Clear(0xFFFFFFFF);
+	camera->Clear(/*0xFFFFFFFF*/);
 	shader->SetValue("ViewPos", camera->GetPos());
 
 	//	ƒXƒe[ƒW•`‰æ
@@ -302,4 +301,5 @@ void	sceneMain::Render()
 	//”g•`‰æ
 	wave->Render();
 
+    iexParticle::Render();
 }

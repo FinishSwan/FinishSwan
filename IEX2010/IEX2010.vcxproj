@@ -110,6 +110,7 @@
     <ClCompile Include="source\Fieldobject.cpp" />
     <ClCompile Include="source\InputManager.cpp" />
     <ClCompile Include="source\ObjectManager.cpp" />
+    <ClCompile Include="source\Particle_AfterImage.cpp" />
     <ClCompile Include="source\Player.cpp" />
     <ClCompile Include="source\ScaleManager.cpp" />
     <ClCompile Include="source\sceneFailed.cpp" />

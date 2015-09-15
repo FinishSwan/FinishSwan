@@ -12,12 +12,13 @@ Player::Player(const float radius, const float adjust_h,
 		const Vector3& color,
 		const TYPE type,
 		iex3DObj* insert_skinmesh) :BaseObjct(radius,adjust_h,pos,angle,scale,color,type),
-obj(insert_skinmesh)
+        obj(insert_skinmesh), m_run_effect(new Particle_AfterImage())
 {
 }
 
 Player::~Player()
 {
+    delete m_run_effect;
 	delete obj;
 }
 
@@ -284,6 +285,11 @@ bool Player::Update()
 		velocity *= dot;
 		wave->Start_Wave(pos + Vector3(0, 4, 0), -normal, 5.0f + 6.0f * power, (5.0f + 6.0f * power) * 15.0f);
 	}
+    
+    Vector3 effect_pos = pos;
+    effect_pos.y += 8.8f;
+    m_run_effect->Execute(effect_pos, velocity);
+
 	obj->SetPos(pos);
 	obj->SetScale(scale);
 	obj->SetAngle(angle);

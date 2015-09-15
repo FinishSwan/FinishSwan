@@ -2,12 +2,29 @@
 
 #include "BaseObj.h"
 
+class Particle_AfterImage
+{
+private :
+    float m_appearance_speed;   //パーティクルが出現するスピード
+    DWORD s_color;                      //出現時のカラー
+    //いろいろメンバいれる
+
+public :
+    /**
+    *@brief    パーティクルセット
+    *@param 出現位置
+    *@param ターゲットの移動情報（関数内でいじるので参照私を行っていない）
+    */
+    void    Execute(const Vector3& position, Vector3 owner_velocity);
+};
+
 class Player:public BaseObjct
 {
 private:
 	 iex3DObj* obj;
 	 int state;//モーション用
 	float outZ ;
+    Particle_AfterImage* m_run_effect;
 public:
 	Player(const float radius, const float adjust_h,
 		const Vector3& pos, const Vector3& angle,
