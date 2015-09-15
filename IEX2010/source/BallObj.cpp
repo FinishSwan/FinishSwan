@@ -1,6 +1,7 @@
 #include	"iextreme.h"
 #include	"BaseObj.h"
 #include	"BallObj.h"
+#include	"ObjectManager.h"
 
 #include	"system/system.h"
 
@@ -24,8 +25,21 @@ bool Ball::Update()
 {
 	if (!enable)
 		return true;
+	//コリジョンチェック
+	Vector3 vec = move;
+
+	Vector3 MinOut;
+
+	vec.Normalize();
+
+	float dist = 1000.0f;
+
+	obj_manager.Collision_of_RayPick(&MinOut, &pos, &vec, &dist, this);
+
 	pos += move;
 	move.y -= 9.8f/60.0f;
+
+
 	obj->SetPos(pos);
 	obj->SetScale(scale);
 	obj->SetAngle(angle);
