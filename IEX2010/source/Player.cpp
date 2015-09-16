@@ -360,6 +360,7 @@ void Player::DebugText()
 
 void Player::Render()
 {
+	//obj->Render();
 	DebugText();
 	shader->SetValue("Color", D3DXVECTOR4(0.5f, 0.5f, 0.5f, 1.0f));
 	obj->Render(shader,"color");

@@ -3,11 +3,14 @@
 class Camera:public iexView
 {
 private:
+	void Calculate_Length();
+
 protected:
 	Vector3 pos;		//ˆÊ’u
 	Vector3 angle;		//Œü‚«
 	Vector3 forward;	//‘O•ûŒü
 	Vector3 target;		//’‹“_
+	Vector3 move;
 	float length;		//‹——£
 	static const int max = 100;	//Å‘å‹——£
 	static const int min = 10;	//Å’á‹——£

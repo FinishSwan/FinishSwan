@@ -155,7 +155,7 @@ public:
 	Vector3() {};
 	inline Vector3( float x, float y, float z ){ this->x=x, this->y=y, this->z=z; } 
 	inline Vector3( CONST Vector& v ){ this->x=v.x, this->y=v.y, this->z=v.z; } 
-
+	inline Vector3 (const float v ){ this->x = v; this->y = v; this->z = v; }
 	//	‹——£ŒvZ
 	inline float Length(){ return sqrtf(x*x + y*y + z*z); }
 	inline float LengthSq(){ return x*x + y*y + z*z; }
