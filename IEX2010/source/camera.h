@@ -36,5 +36,6 @@ public:
 
 };
 
+extern Camera* camera;
 
 

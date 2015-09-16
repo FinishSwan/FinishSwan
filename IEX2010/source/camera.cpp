@@ -12,7 +12,12 @@ Camera::~Camera()
 
 void Camera::Directional()
 {
-	pos = target - forward * length;
+	if (player->IsFalled())
+	{
+
+	}
+	else
+		pos = target - forward * length;
 }
 
 void Camera::Rotate()

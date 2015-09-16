@@ -104,6 +104,7 @@
   <ItemGroup>
     <ClCompile Include="source\BallObj.cpp" />
     <ClCompile Include="source\BaseObj.cpp" />
+    <ClCompile Include="source\BlackCircle.cpp" />
     <ClCompile Include="source\camera.cpp" />
     <ClCompile Include="source\EntryPoint.cpp" />
     <ClCompile Include="source\Fade.cpp" />
@@ -144,6 +145,7 @@
   <ItemGroup>
     <ClInclude Include="source\BallObj.h" />
     <ClInclude Include="source\BaseObj.h" />
+    <ClInclude Include="source\BlackCircle.h" />
     <ClInclude Include="source\camera.h" />
     <ClInclude Include="source\CP11Rand.h" />
     <ClInclude Include="source\EntryPoint.h" />

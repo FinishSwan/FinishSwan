@@ -7,6 +7,7 @@
 #include	"InputManager.h"
 #include   "Fieldobject.h"
 #include	"Fade.h"
+#include	"BlackCircle.h"
 
 #include	"ScrConverter.h"
 #include	"sceneMain.h"
@@ -29,6 +30,8 @@ Camera*		camera;
 
 //	ステージ用
 iexMesh* stage = NULL;
+
+BlackCircle* blackcircle = NULL;
 
 //　プレイヤー用
 Player*		player = NULL;
@@ -72,7 +75,7 @@ bool sceneMain::Initialize()
 
 	//	ステージ読み込みz
 	iexMesh* stage = new iexMesh("DATA\\BG\\STAGE\\STAGE01.X");
-	iex3DObj* insert = new iex3DObj("DATA\\CHR\\ECCMAN\\ECCMAN.IEM");
+	iex3DObj* insert = new iex3DObj("DATA\\CHR\\human\\human Find_Me.IEM");
 
 	iexMesh* insert_ball = new iexMesh("DATA\\IMO\\Ball.IMO");
 
@@ -82,6 +85,7 @@ bool sceneMain::Initialize()
 	iexMesh* insert_mesh2 = new iexMesh("DATA\\IMO\\tana.IMO");
 //	iexMesh* insert_mesh3= new iexMesh("DATA\\IMO\\notePC.IMO");
 	
+	blackcircle = new BlackCircle();
 
 	//オブジェクト初期化
 	desk = new Fileobject(1,
@@ -98,6 +102,7 @@ bool sceneMain::Initialize()
 		0.3,
 		Vector3(2, 1, 3),
 		Vector3(0, 0, 0),
+		Vector3(1, 1, 1),
 		Vector3(1, 1, 1),
 		BaseObjct::TYPE::judge,
 		stage);
@@ -274,8 +279,8 @@ void	sceneMain::Update()
 
 	//	プレイヤー更新
 	Vector3 forward(sinf(player->GetAngle().y), .0f, cosf(player->GetAngle().y));
-	if (KEY_Get(KEY_B)==3)
-		ball->Ball_Start(player->GetPos() + Vector3(0, 7, 0), forward * 3.0f);
+	if (KEY_Get(KEY_B) == 3)
+		blackcircle->Start(1.0f);
 
 	obj_manager.Update();
 
@@ -286,6 +291,8 @@ void	sceneMain::Update()
 	Vector3 vec = Vector3(sinf(angle.y), 0, cosf(angle.y));
 	vec.Normalize();
 	float out_d=100;
+
+	//投球
 
    
 
@@ -311,6 +318,7 @@ void	sceneMain::Update()
 	
 	//SetCursorPos(100, 200);
     iexParticle::Update();
+	blackcircle->Update();
 
 }
 
@@ -324,7 +332,7 @@ void	sceneMain::Render()
 {
 	//	画面クリア
 	camera->Activate();
-	camera->Clear(/*0xFFFFFFFF*/);
+	camera->Clear(0xFFFFFFFF);
 	shader->SetValue("ViewPos", camera->GetPos());
 
 	//	ステージ描画
@@ -344,4 +352,11 @@ void	sceneMain::Render()
 	wave->Render();
 
 	iexParticle::Render(shader2D,"copy");
+
+	if (blackcircle->IsEnable())
+	{
+		blackcircle->Render();
+		camera->ClearZ();
+		player->Render();
+	}
 }

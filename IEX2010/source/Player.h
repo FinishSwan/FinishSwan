@@ -25,6 +25,11 @@ private:
 	 int state;//ƒ‚[ƒVƒ‡ƒ“—p
 	float outZ ;
     Particle_AfterImage* m_run_effect;
+	float NoControlTime;
+	bool Falled;
+	float FallSpeed;
+	bool IsCanControl(){ return NoControlTime < .0f; }
+	void Throw_Start();
 public:
 	Player(const float radius, const float adjust_h,
 		const Vector3& pos, const Vector3& angle,
@@ -42,7 +47,9 @@ public:
 	float StageWallRight(Vector3* vec);
 	float StageWallLeft(Vector3* vec);
 
+	void Fall();
 
+	bool IsFalled(){ return Falled; }
 	void Rotate();
 
 	bool Update();
@@ -58,5 +65,7 @@ public:
 	void Collision(const Vector3& hit_position, BaseObjct* hit_object)override;
 	void Wave_Render()override;
 
+	bool IsBallThrow(){ return obj->GetParam(0) == 1; }
 };
 
+extern Player* player;

@@ -2,6 +2,9 @@
 #include "Player.h"
 #include	"ObjectManager.h"
 #include	"Wave.h"
+#include	"BallObj.h"
+#include	"camera.h"
+#include	"BlackCircle.h"
 
 #include	"system/system.h"
 
@@ -12,7 +15,7 @@ Player::Player(const float radius, const float adjust_h,
 		const Vector3& color,
 		const TYPE type,
 		iex3DObj* insert_skinmesh) :BaseObjct(radius,adjust_h,pos,angle,scale,color,type),
-        obj(insert_skinmesh), m_run_effect(new Particle_AfterImage())
+		obj(insert_skinmesh), m_run_effect(new Particle_AfterImage()), NoControlTime(-1.0f), Falled(false)
 {
 }
 
@@ -43,7 +46,7 @@ void Player::Move()
 	
 	Vector3 temp = Vector3(0, 0, 0);
 	bool is_move = false;
-	if (KEY_Get(KEY_UP))
+	if (KEY_Get(KEY_UP) && IsCanControl())
 	{
 		SetMotion(1);
 		temp += c_front;
@@ -55,7 +58,7 @@ void Player::Move()
 		//}
 	}
 	
-	if (KEY_Get(KEY_DOWN))
+	if (KEY_Get(KEY_DOWN) && IsCanControl())
 	{
 		SetMotion(1);
 		temp -= c_front;
@@ -67,7 +70,7 @@ void Player::Move()
 		////}
 	}
 
-	if (KEY_Get(KEY_RIGHT))
+	if (KEY_Get(KEY_RIGHT) && IsCanControl())
 	{
 		SetMotion(1);
 		temp += c_right;
@@ -79,7 +82,7 @@ void Player::Move()
 		//}
 	}
 
-	if (KEY_Get(KEY_LEFT))
+	if (KEY_Get(KEY_LEFT) && IsCanControl())
 	{
 		is_move = true;
 		SetMotion(1);
@@ -135,6 +138,8 @@ void Player::Rotate()
 		float gaiseki = (rotate.z*velocity.x) - (rotate.x*velocity.z);
 
 		/*if (KEY_Get(KEY_UP)){*/
+		if (IsCanControl())
+		{
 			if (gaiseki > .0f)
 			{
 				angle.y += naiseki;
@@ -143,11 +148,15 @@ void Player::Rotate()
 			else{
 				angle.y -= naiseki;
 			}
+
+		}
 		
 }
 
 void Player::SetMotion(int motion)
 {
+	if (!IsCanControl())
+		return;
 	if (obj->GetMotion() != motion)
 		obj->SetMotion(motion);
 }
@@ -258,6 +267,18 @@ float Player::StageWallLeft(Vector3* ptr_vec)
 
 bool Player::Update()
 {
+	NoControlTime -= 1.0f / 60.0f;
+
+	if (blackcircle->IsBlacked() && IsCanControl())
+	{
+		Fall();
+	}
+
+	if (Falled)
+	{
+		FallSpeed += 0.06f;
+		pos.y -= FallSpeed;
+	}
 	Vector3 BeforePos = pos;
 	Move();
 	Rotate();
@@ -268,11 +289,13 @@ bool Player::Update()
 	
 	Vector3 normal = Vector3(0,0,0);
 
-	pos.z = StageWallFront(&normal);
-	pos.z = StageWallBack(&normal);
-	pos.x = StageWallRight(&normal);
-	pos.x = StageWallLeft(&normal);
-
+	if (!Falled)
+	{ 
+		pos.z = StageWallFront(&normal);
+		pos.z = StageWallBack(&normal);
+		pos.x = StageWallRight(&normal);
+		pos.x = StageWallLeft(&normal);
+	}
 	if (normal.Length() > 0.9f && velocity.Length() > 0.01f)
 	{
 		normal.y = .0f;
@@ -286,6 +309,12 @@ bool Player::Update()
 		wave->Start_Wave(pos + Vector3(0, 4, 0), -normal, 5.0f + 6.0f * power, (5.0f + 6.0f * power) * 15.0f);
 	}
     
+	//“Š‹…
+	if (KEY_Get(KEY_SPACE) == 3 && IsCanControl())
+		Throw_Start();
+
+
+
     Vector3 effect_pos = pos;
     effect_pos.y += 8.8f;
     m_run_effect->Execute(effect_pos, velocity);
@@ -296,7 +325,29 @@ bool Player::Update()
 	obj->Animation();
 	obj->Update();
 
+	if (IsBallThrow())
+	{
+		Matrix mat;
+		Vector3 front = Vector3(sinf(angle.y), 0, cosf(angle.y));
+		mat = *obj->GetBone(7);
+		//mat._41 += mat._13 * 20.0f;
+		//mat._42 += mat._23 * 20.0f;
+		//mat._43 += mat._33 * 20.0f;
+		mat *= obj->TransMatrix;
+		ball->Ball_Start(Vector3(mat._41, mat._42, mat._43), front * 3.0f);
+		obj->SetParam(0, 0);
+	}
 	return true;
+}
+
+void Player::Throw_Start()
+{
+	obj->SetMotion(7);
+	Vector3 forward = camera->GetForward();
+	forward.y = .0f;
+	forward.Normalize();
+	angle.y = atan2f(forward.x, forward.z);
+	NoControlTime = 3.0f;
 }
 
 void Player::DebugText()
@@ -327,4 +378,11 @@ void Player::Wave_Render()
 {
 	BaseObjct::Wave_Render(obj);
 
+}
+void Player::Fall()
+{
+	Falled = true;
+	FallSpeed = .0f;
+	obj->SetMotion(6);
+	NoControlTime = 20.0f;
 }
