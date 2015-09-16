@@ -1,6 +1,7 @@
 #include    "iextreme.h"
 #include    "sceneSuccess.h"
 #include    "sceneMain.h"
+#include    "sceneTitle.h"
 
 #include	"Fade.h"
 
@@ -36,7 +37,7 @@ void sceneSuccess::Update()
 
 	if (Pushed && FadeManager::IsFadeEnd())
 	{
-		MainFrame->ChangeScene(new sceneMain());
+		MainFrame->ChangeScene(new sceneTitle());
 	}
 }
 

@@ -10,7 +10,11 @@ class ObjectManager : public Singleton<ObjectManager>
 {
 private :
 	BaseObjct* m_object_array[MAX_OBJECT];	//この配列ですべてのオブジェクトのインスタンスを管理する
-	
+    BaseObjct* m_answer_object;
+    int                m_num_register;
+
+    bool DecisionAnswerObject();
+
 public :
 	ObjectManager(){}
 	~ObjectManager();
@@ -29,6 +33,10 @@ public :
 	BaseObjct* Collision_of_Sphere(BaseObjct* owner_object,float* ret_merikomi,Vector3* ret_merikomi_vec);
 
 	void AllPaint(BaseObjct* owner_object);
+
+    bool    PlacementAllObject();
+    bool    Is_AnswerObject(const BaseObjct* object);
+	BaseObjct* GetAnswerObject(){ return m_answer_object; }
 
 };
 

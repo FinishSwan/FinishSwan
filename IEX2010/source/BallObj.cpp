@@ -71,7 +71,7 @@ bool Ball::Update()
 	}
 
 	pos += move;
-	move.y -= 9.8f/60.0f * 0.2f;
+	move.y -= 9.8f/60.0f * 0.4f;
 
 
 	obj->SetPos(pos);

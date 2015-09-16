@@ -52,6 +52,8 @@ void Wave::Start_Wave(Vector3 pos, Vector3 dir, float power, float length)
 
 	if (min.length < 7.0f)
 	{
+		if (min.ret == nullptr)
+			return;
 		if (min.ret->IsPainted())
 			return;
 		HitObj = min.ret;

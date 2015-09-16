@@ -26,6 +26,7 @@ public:
 	virtual int RayPick(Vector3* out, Vector3* pos, Vector3* vec, float *Dist) = 0;
 	virtual void Collision(const Vector3& hit_position, BaseObjct* hit_object) =0;
 	virtual void Wave_Render() = 0;
+	virtual iexMesh* getMesh(){ return nullptr; }
 
 	void Paint_Start(Vector3 pos);
 

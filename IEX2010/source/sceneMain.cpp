@@ -8,6 +8,8 @@
 #include   "Fieldobject.h"
 #include	"Fade.h"
 #include	"BlackCircle.h"
+#include    "sceneSuccess.h"
+
 
 #include	"ScrConverter.h"
 #include	"sceneMain.h"
@@ -45,7 +47,11 @@ Fileobject*  notePC = nullptr;
 
 Wave*		wave = NULL;
 
+float time;
 
+bool judge;
+
+bool clear;
 //*****************************************************************************************************************************
 //
 //	初期化
@@ -59,6 +65,8 @@ bool sceneMain::Initialize()
 	//iexLight::SetFog( 1500, 2000, 0xff0080ff );
 	iexLight::SetFog(800, 1000, 0);
 
+	time = .0f;
+	judge = false;
 	//	環境光
 	Vector3	 dir(-2.0f, -0.5f, 1.0f);
 	iexLight::DirLight(0, &dir, 1.0f, 1.0f, 1.0f);
@@ -67,34 +75,32 @@ bool sceneMain::Initialize()
 	GOflag = false;
 	//	平行光
 
-	obj_manager.Initialize();
-
 	//	ステージ読み込みz
 	iexMesh* stage = new iexMesh("DATA\\IMO\\new_room.IMO");
 	//プレイヤー読み込み
 	iex3DObj* insert = new iex3DObj("DATA\\CHR\\human\\human Find_Me.IEM");
 	//オブジェクト初期化
 	blackcircle = new BlackCircle();
-		lpstage = new Fileobject(1,
-		0.3,
-		Vector3(0, -6, 0),
-		Vector3(0, 0, 0),
-		Vector3(1, 1, 1),
-		Vector3(1.5, 1.5, 1.5),
-		BaseObjct::TYPE::judge,
-		stage);
+		//lpstage = new Fileobject(1,
+		//0.3,
+		//Vector3(0, -6, 0),
+		//Vector3(0, 0, 0),
+		//Vector3(1, 1, 1),
+		//Vector3(1.5, 1.5, 1.5),
+		//BaseObjct::TYPE::judge,
+		//stage);
 
-	//	プレイヤー初期化
-	player = new Player(1,
-		0.3,
-		//Vector3(90.1783905, 0, 0)
-		Vector3(0, 0, 0),
-		Vector3(0, 0, 0),
-		Vector3(0.05f, 0.05f, 0.05f),
-		Vector3(1, 1, 1),
-		BaseObjct::TYPE::player,
-		insert);
-	obj_manager.InsertObject(player);
+	////	プレイヤー初期化
+	//player = new Player(1,
+	//	0.3,
+	//	//Vector3(90.1783905, 0, 0)
+	//	Vector3(0, 0, 0),
+	//	Vector3(0, 0, 0),
+	//	Vector3(0.05f, 0.05f, 0.05f),
+	//	Vector3(1, 1, 1),
+	//	BaseObjct::TYPE::player,
+	//	insert);
+	//obj_manager.InsertObject(player);
 	//obj_manager.InsertObject(ball);
 	//	カメラ設定
 	//view = new iexView();
@@ -103,87 +109,86 @@ bool sceneMain::Initialize()
 
 	FadeManager::FadeOut(1.0f);
 
-	EntryPoint::Initialize();
+	//EntryPoint::Initialize();
 
-	//オブジェクトの位置決定
-	Vector3 pos[7] =
-	{
-		Vector3(23.74, 0, 24.04),
-		Vector3(-26.74, 0, 29.26),
-		Vector3(-30.88, 0, -29.46),
-		Vector3(29.85, 0, -29.35),
-		Vector3(-1.02, 0, -9.32),
-		Vector3(23.42, 0, 0.51),
-		Vector3(0.66, 0, 25.31),
-	};
-	//向き決定
-	Vector3 angle[7] =
-	{
-		Vector3(0, 0, 0),
-		Vector3(0, 0, 0),
-		Vector3(0, 0, 0),
-		Vector3(0, 0, 0),
-		Vector3(0, 0, 0),
-		Vector3(0, 0, 0),
-		Vector3(0, 0, 0),
-	};
+	////オブジェクトの位置決定
+	//Vector3 pos[8] =
+	//{
+ //       Vector3(0, 0, 0),
+	//	Vector3(23.74, 0, 24.04),
+	//	Vector3(-26.74, 0, 29.26),
+	//	Vector3(-30.88, 0, -29.46),
+	//	Vector3(29.85, 0, -29.35),
+	//	Vector3(-1.02, 0, -9.32),
+	//	Vector3(23.42, 0, 0.51),
+	//	Vector3(0.66, 0, 25.31),
+	//};
+	////向き決定
+	//Vector3 angle[9] =
+	//{
+ //       Vector3(0, 0, 0),
+	//	Vector3(0, 0, 0),
+	//	Vector3(0, 0, 0),
+	//	Vector3(0, 0, 0),
+	//	Vector3(0, 0, 0),
+	//	Vector3(0, 0, 0),
+	//	Vector3(0, 0, 0),
+	//	Vector3(0, 0, 0),
+	//};
 
-	for (int i = 0; i < 7; i++)
-	{
-		EntryPoint::Register(pos[i], angle[i]);
-	}
+	//for (int i = 0; i < 7; i++)
+	//{
+	//	EntryPoint::Register(pos[i], angle[i]);
+	//}
 
 
 
-	//スケール設定
-	char* filename[8] =
-	{
-		("DATA\\IMO\\new_tana.IMO"),
-		("DATA\\IMO\\bed.IMO"),
-		("DATA\\IMO\\new_sofa.IMO"),
-		("DATA\\IMO\\table_kai.IMO"),
-		("DATA\\IMO\\tanataka.IMO"),
-		("DATA\\IMO\\terebi.IMO"),
-		("DATA\\IMO\\toire.IMO"),
-		("DATA\\IMO\\tukuetoisu.IMO"),
-	};
-	float scale[8] =
-	{
-		0.08f,
-		3.0f,
-		0.85f,
-		0.1f,
-		0.2f,
-		0.15f,
-		0.1f,
-		0.005f,
-	};
-	for (int i  = 0; i < 8; i++)
-	{
-		ScaleManager::Register(filename[i], scale[i]);
-	}
-	for (int i = 0; i < 8; i++)
-	{
-		ScaleManager::GetScale(filename[i]);
-	}
+	////スケール設定
+	//char* filename[9] =
+	//{
+ //       "DATA\\IMO\\new_room.IMO",
+	//	("DATA\\IMO\\tana.IMO"),
+	//	("DATA\\IMO\\bed.IMO"),
+	//	("DATA\\IMO\\sofa.IMO"),
+	//	("DATA\\IMO\\table_kai.IMO"),
+	//	("DATA\\IMO\\tanataka.IMO"),
+	//	("DATA\\IMO\\terebi.IMO"),
+	//	("DATA\\IMO\\toire.IMO"),
+	//	("DATA\\IMO\\tukuetoisu.IMO"),
+	//};
+	//float scale[9] =
+	//{
+ //       1.0f,
+	//	0.08f,
+	//	3.0f,
+	//	0.85f,
+	//	0.1f,
+	//	0.2f,
+	//	0.15f,
+	//	0.1f,
+	//	0.005f,
+	//};
+	//for (int i  = 0; i < 9; i++)
+	//{
+	//	ScaleManager::Register(filename[i], scale[i]);
+	//}
+	////オブジェクト読み込み
+	//for (int i = 0; i < 8; i++)
+	//{
+	//	Vector3 p, s;
+	//	EntryPoint::GetPoint(&p, &s);
+	//	iexMesh* insert_mesh = new iexMesh(filename[i]);
+	//	Fileobject* insert_obj = new Fileobject(1, 0.3,
+	//		p,
+	//		angle[i],
+	//		scale[i],
+	//		Vector3(1, 1, 1),
+	//		BaseObjct::judge,
+	//		insert_mesh);
 
-	//オブジェクト読み込み
-	for (int i = 0; i < 7; i++)
-	{
-		Vector3 p, s;
-		EntryPoint::GetPoint(&p, &s);
-		iexMesh* insert_mesh = new iexMesh(filename[i]);
-		Fileobject* insert_obj = new Fileobject(1, 0.3,
-			p,
-			angle[i],
-			scale[i],
-			Vector3(1, 1, 1),
-			BaseObjct::judge,
-			insert_mesh);
+	//	obj_manager.InsertObject(insert_obj);
 
-		obj_manager.InsertObject(insert_obj);
-
-	}
+	//}
 
 
 
@@ -252,7 +257,7 @@ bool sceneMain::Initialize()
 
 sceneMain::~sceneMain()
 {
-	obj_manager.Release();
+	
 	delete camera;
 	delete stage;
 	delete wave;
@@ -280,8 +285,8 @@ void	sceneMain::Update()
 
 	//	プレイヤー更新
 	Vector3 forward(sinf(player->GetAngle().y), .0f, cosf(player->GetAngle().y));
-	if (KEY_Get(KEY_B) == 3)
-		blackcircle->Start(1.0f);
+	//if (KEY_Get(KEY_B) == 3)
+	//	blackcircle->Start(1.0f);
 
 	obj_manager.Update();
 
@@ -318,11 +323,35 @@ void	sceneMain::Update()
 	//SetCursorPos(100, 200);
 	iexParticle::Update();
 	blackcircle->Update();
-
-	if (KEY_Get(KEY_ENTER) == 3)
+	if (player->ball->GetHitObj() != nullptr)
+		time += 1.0f / 60.0f;
+	if (!judge)
 	{
-		obj_manager.AllPaint(player->ball->GetHitObj());
+		if (player->ball->GetHitObj() != nullptr)
+		{
+
+			if (time > 2.0f)
+			{
+
+				if (obj_manager.Is_AnswerObject(player->ball->GetHitObj()))
+				{
+					obj_manager.AllPaint(player->ball->GetHitObj());
+				}
+				else
+				{
+					blackcircle->Start(1.0f);
+				}
+				judge = true;
+			}
+		}
+
 	}
+
+
+	//if (KEY_Get(KEY_ENTER) == 3)
+	//{
+	//	obj_manager.AllPaint(player->ball->GetHitObj());
+	//}
 	if (player->IsGameOver() && !GOflag)
 	{
 		GOflag = true;
@@ -331,9 +360,22 @@ void	sceneMain::Update()
 	}
 
 	if (GOflag && FadeManager::IsFadeEnd())
+	{
 		MainFrame->ChangeScene(new sceneFailed());
+		return;
+	}
 
-
+	if (time > 6.0f && !clear)
+	{
+		clear = true;
+		FadeManager::SetColor(Vector3(1, 1, 1));
+		FadeManager::FadeIn(1.0f);
+	}
+	else if (clear && FadeManager::IsFadeEnd())
+	{
+		MainFrame->ChangeScene(new sceneSuccess());
+		return;
+	}
 
 }
 
@@ -368,7 +410,7 @@ void	sceneMain::Render()
 
 	iexParticle::Render(shader2D, "copy");
 
-	Vector3 p = obj_manager.GetPlayer()->GetPos();
+	//Vector3 p = obj_manager.GetPlayer()->GetPos();
 
 
 

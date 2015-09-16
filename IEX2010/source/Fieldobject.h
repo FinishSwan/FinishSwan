@@ -21,4 +21,7 @@ public:
 private:
 	iexMesh* mesh;
 
+public:
+	iexMesh* getMesh(){ return mesh; }
+
 };

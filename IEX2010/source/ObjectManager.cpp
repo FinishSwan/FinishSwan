@@ -2,28 +2,34 @@
 #include	"BaseObj.h"
 #include	"ObjectManager.h"
 #include	"Wave.h"
-
+#include	"EntryPoint.h"
+#include    "Fieldobject.h"
 #include	<vector>
 #include	<list>
+#include    "ScaleManager.h"
+#include    "CP11Rand.h"
+#include    <assert.h>
+#include    "Player.h"
 
 void	ObjectManager::Initialize()
 {
 	ZeroMemory(m_object_array, sizeof(BaseObjct*)* MAX_OBJECT);
+    m_num_register = 0;
+	m_answer_object = nullptr;
 }
 
 void	ObjectManager::Release()
 {
-	for (auto it : m_object_array)
-	{
-		if (it)
-		{
-			delete it;
-			it = nullptr;
-		}
-	}
+    for (auto it : m_object_array)
+    {
+        if (it)
+        {
+            delete it;
+            it = nullptr;
+        }
+    }
 
 }
-
 
 
 bool	ObjectManager::InsertObject(BaseObjct* insert)
@@ -34,6 +40,7 @@ bool	ObjectManager::InsertObject(BaseObjct* insert)
 		if (!m_object_array[i])
 		{
 			m_object_array[i] = insert;
+            m_num_register++;
 			return true;
 		}
 	}
@@ -175,4 +182,90 @@ void	ObjectManager::AllPaint(BaseObjct* owner_object)
 	}
 
 	
+}
+
+#define SAFE_DELETE(x)if(x) delete x; x = nullptr;
+
+bool ObjectManager::PlacementAllObject()
+{
+    if (m_num_register >0)
+    {
+        for (int i = 0; i < m_num_register; i++)
+        {
+            SAFE_DELETE(m_object_array[i]);
+        }
+    }
+    m_num_register = 0;
+    iex3DObj* insert = new iex3DObj("DATA\\CHR\\human\\human Find_Me.IEM");
+    player = new Player(
+        1,
+        0.3,
+        Vector3(0, 0, 0),
+        Vector3(0, 0, 0),
+        Vector3(0.05f, 0.05f, 0.05f),
+        Vector3(1, 1, 1),
+        BaseObjct::TYPE::player,
+        insert);
+    InsertObject(player);
+
+	iexMesh* insert_mesh = new iexMesh("DATA\\IMO\\new_room.IMO");
+	Fileobject* insert_obj = new Fileobject(1, 0.3,
+		Vector3(0, -5.6, 0),
+		Vector3(0,0,0),
+		Vector3(1.2, 1.2, 1.2),
+		Vector3(1, 1, 1),
+		BaseObjct::judge,
+		insert_mesh);
+	InsertObject(insert_obj);
+
+    char* filename[8] =
+    {
+        /*"DATA\\IMO\\new_room.IMO",*/
+        ("DATA\\IMO\\tana.IMO"),
+        ("DATA\\IMO\\bed.IMO"),
+        ("DATA\\IMO\\sofa.IMO"),
+        ("DATA\\IMO\\table_kai.IMO"),
+        ("DATA\\IMO\\tanataka.IMO"),
+        ("DATA\\IMO\\terebi.IMO"),
+        ("DATA\\IMO\\toire.IMO"),
+        ("DATA\\IMO\\tukuetoisu.IMO"),
+    };
+
+    //オブジェクト読み込み
+    for (int i = 0; i < 8; i++)
+    {
+        Vector3 p, a;
+        EntryPoint::GetPoint(&p, &a);
+        iexMesh* insert_mesh = new iexMesh(filename[i]);
+        Vector3 scale = ScaleManager::GetScale(filename[i]);
+        Fileobject* insert_obj = new Fileobject(1, 0.3,
+            p,
+            a,
+            scale,
+            Vector3(1, 1, 1),
+            BaseObjct::judge,
+            insert_mesh);
+        InsertObject(insert_obj);
+    }
+   assert( DecisionAnswerObject());
+    return true;
+}
+
+bool ObjectManager::DecisionAnswerObject()
+{
+    if (m_answer_object)
+        m_answer_object = nullptr;
+    
+    int answer_index = RandomEngine::Execute(2, 8);
+    assert(m_object_array[answer_index]);
+    m_answer_object = m_object_array[answer_index];
+    return true;
+}
+
+bool ObjectManager::Is_AnswerObject(const BaseObjct* object)
+{
+    if (m_answer_object == object)
+        return true;
+
+    return false;
 }
