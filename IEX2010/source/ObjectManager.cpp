@@ -146,6 +146,7 @@ void	ObjectManager::Update()
 
 void	ObjectManager::Render()
 {
+	
 	for (auto& it : m_object_array)
 	{
 		if (!it)

@@ -38,9 +38,9 @@ bool Fileobject::Update()
 
 void Fileobject::Render()
 {
-	//mesh->Render();
-	if(!Paint_Render(mesh))
-		mesh->Render(shader,"white");
+	mesh->Render();
+	/*if(!Paint_Render(mesh))
+		mesh->Render(shader,"white");*/
 }
 
 void Fileobject::Wave_Render()
