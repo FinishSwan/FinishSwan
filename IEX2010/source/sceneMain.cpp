@@ -67,6 +67,7 @@ bool sceneMain::Initialize()
 
 	time = .0f;
 	judge = false;
+    clear = false;
 	//	ŠÂ‹«Œõ
 	Vector3	 dir(-2.0f, -0.5f, 1.0f);
 	iexLight::DirLight(0, &dir, 1.0f, 1.0f, 1.0f);
@@ -264,7 +265,7 @@ sceneMain::~sceneMain()
 	//delete ball;
 	iexParticle::Release();
 	EntryPoint::Release();
-
+    judge = false;
 }
 
 //*****************************************************************************************************************************

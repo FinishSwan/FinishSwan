@@ -10,7 +10,7 @@ class EntryPoint
 		Positioning():pos(Vector3(0,0,0)),angle(Vector3(0,0,0)),Isactive(false){}
 	};
 private:
-	static Positioning *container;
+	static Positioning container[15];
 	static int numactive;
 
 public:

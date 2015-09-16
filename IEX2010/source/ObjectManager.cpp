@@ -195,6 +195,38 @@ bool ObjectManager::PlacementAllObject()
             SAFE_DELETE(m_object_array[i]);
         }
     }
+
+    //オブジェクトの位置決定
+    Vector3 pos[8] =
+    {
+        //Vector3(0, -5.6, 0),
+        Vector3(10.0f, 0, -5.0f),
+        Vector3(23.74, 0, 24.04),
+        Vector3(-26.74, 0, 29.26),
+        Vector3(-30.88, 0, -29.46),
+        Vector3(29.85, 0, -29.35),
+        Vector3(-1.02, 0, -9.32),
+        Vector3(23.42, 0, 0.51),
+        Vector3(0.66, 0, 25.31),
+    };
+    //向き決定
+    Vector3 angle[8] =
+    {
+        Vector3(0, 0, 0),
+        Vector3(0, 0, 0),
+        Vector3(0, 0, 0),
+        Vector3(0, 0, 0),
+        Vector3(0, 0, 0),
+        Vector3(0, 0, 0),
+        Vector3(0, 0, 0),
+        Vector3(0, 0, 0),
+    };
+
+    for (int i = 0; i < 8; i++)
+    {
+        EntryPoint::Register(pos[i], angle[i]);
+    }
+
     m_num_register = 0;
     iex3DObj* insert = new iex3DObj("DATA\\CHR\\human\\human Find_Me.IEM");
     player = new Player(

@@ -46,6 +46,11 @@ void sceneFind::Update()
 		MainFrame->ChangeScene(new sceneMain());
 	}
 
+    if (KEY_Get(KEY_B) == 3)
+    {
+        int a = 0;
+    }
+
 }
 
 void sceneFind::Render()

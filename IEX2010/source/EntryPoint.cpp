@@ -4,12 +4,12 @@
 
 #include	"CP11Rand.h"
 
-EntryPoint::Positioning* EntryPoint::container = nullptr;
+EntryPoint::Positioning EntryPoint::container[15];
 int EntryPoint::numactive = 0;
 
 void EntryPoint::Initialize()
 {
-	container = new Positioning[15];
+	
 }
 
 bool EntryPoint::Register(const Vector3& pos, const Vector3& angle)
@@ -53,5 +53,8 @@ void EntryPoint::GetPoint(Vector3* outpos, Vector3* outangle)
 
 void EntryPoint::Release()
 {
-	delete[] container;
+    for (int i = 0; i < 15; i++)
+    {
+        container[i].Isactive = false;
+    }
 }
