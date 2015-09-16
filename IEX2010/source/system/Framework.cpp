@@ -90,11 +90,11 @@ void Framework::Render()
 	FadeManager::Render();
 
 	//	フレーム表示
-//#ifdef _DEBUG
-//	char	str[64];
-//	wsprintf( str, "FPS %03d / %03d\n", dwFPS, dwRenderFPS );
-//	IEX_DrawText( str, 10,10,200,20, 0xFFFFFF00 );
-//#endif
+#ifdef _DEBUG
+	//char	str[64];
+	//wsprintf( str, "FPS %03d / %03d\n", dwFPS, dwRenderFPS );
+	//IEX_DrawText( str, 10,10,200,20, 0xFFFFFF00 );
+#endif
 
 	// シーン終了
 	iexSystem::EndScene();

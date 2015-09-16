@@ -14,6 +14,7 @@ void iexRenderState::Initialize()
 	//	ポリゴン描画設定
 	iexSystem::Device->SetRenderState( D3DRS_CULLMODE, D3DCULL_CCW );
 	iexSystem::Device->SetRenderState( D3DRS_FILLMODE, D3DFILL_SOLID );
+	//iexSystem::Device->SetRenderState( D3DRS_FILLMODE, D3DFILL_POINT );
 	iexSystem::Device->SetRenderState( D3DRS_SHADEMODE, D3DSHADE_GOURAUD );
 
 	//	アルファブレンド設定
