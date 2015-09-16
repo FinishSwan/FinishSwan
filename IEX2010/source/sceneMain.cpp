@@ -200,7 +200,7 @@ bool sceneMain::Initialize()
 	//EntryPoint::GetPoint(&desk_pos,&desk_angle);
 	
 
-	iexParticle::Initialize("DATA\\particle.png", 1000);
+	iexParticle::Initialize("DATA\\particle2.png", 1000);
 
 	return true;
 }
@@ -297,9 +297,11 @@ void	sceneMain::Render()
 	//	ƒvƒŒƒCƒ„[•`‰æ
 	/*player->Render();*/
 
+   
+
 	obj_manager.Render();
 	//”g•`‰æ
 	wave->Render();
 
-    iexParticle::Render();
+	iexParticle::Render(shader2D,"copy");
 }

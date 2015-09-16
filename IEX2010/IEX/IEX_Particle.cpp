@@ -348,13 +348,13 @@ void iexParticle::Render( iexShader* shader, char* name )
 	CurViewProjection = matView * matProjection;
 
 	shader->SetTexture( lpTexture->GetTexture() );
-	iexRenderState::Set( RS_ADD, NULL, lpTexture->GetTexture() );
+	iexRenderState::Set( RS_COPY, NULL, lpTexture->GetTexture() );
 
 	iexSystem::Device->SetRenderState( D3DRS_CULLMODE, D3DCULL_NONE );
 	iexSystem::Device->SetFVF(D3DFVF_TLVERTEX);
 	//	アルファブレンド設定
 	iexSystem::Device->SetRenderState( D3DRS_SRCBLEND,  D3DBLEND_SRCALPHA );
-	iexSystem::Device->SetRenderState( D3DRS_DESTBLEND, D3DBLEND_ONE );
+	iexSystem::Device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 	iexSystem::Device->SetRenderState( D3DRS_ALPHABLENDENABLE, TRUE );
 
 	for( i=0 ; i<nParticles ; i++ ){

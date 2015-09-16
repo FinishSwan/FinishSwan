@@ -54,7 +54,11 @@ VS_OUTPUT_G VS_pass1 (
 // -------------------------------------------------------------
 float4 PS_pass2(VS_OUTPUT_G In) : COLOR
 {
-	return In.Color * tex2D( DecaleSamp2, In.Tex );
+	float4 color = In.Color * tex2D(DecaleSamp2, In.Tex);
+	if (color.a == .0f)
+		discard;
+	return color;
+
 }
 
 float4 PS_pass1(VS_OUTPUT_G In) : COLOR
@@ -120,9 +124,11 @@ technique copy
     pass P0
     {
 		AlphaBlendEnable = true;
-		BlendOp          = Add;
-		SrcBlend         = SrcAlpha;
-		DestBlend        = InvSrcAlpha;
+		BlendOp = Add;
+		SrcBlend = SrcAlpha;
+		DestBlend = InvSrcAlpha;
+		ZWriteEnable = true;
+		ZEnable = true;
 		// シェーダ
         VertexShader = compile vs_3_0 VS_pass1();
         PixelShader  = compile ps_3_0 PS_pass2();

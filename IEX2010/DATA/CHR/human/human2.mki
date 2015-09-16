@@ -4,220 +4,257 @@ Character {
 	name = "human.mqo"
 	coordinate = "human.mqo"
 	Skelton {
-		name = "body"
+		name = "unknown"
 		Locate {
 			name = "j_anchor14"
-			spos = ( -0.385100, 135.169281 ,3.453100)
+			spos = ( -0.385100, 135.169281, 3.453100)
+			pos = ( -0.385100, 135.169266, 3.453099)
 		}
 		Bone {
 			name = "anchor14"
-			srot = ( 0.001144, 0.749792 ,0.661672, -0.001009)
+			srot = ( 0.001144, 0.749792, 0.661672, -0.001009)
+			rot = ( -0.205188, 0.702883, 0.653202, 0.192823)
 			start = "j_anchor14"
 			end = "j_anchor12"
+		}
+		Locate {
+			name = "j_anchor12"
+			coordinate = "anchor14"
+			spos = ( 0.000000, 0.000002, 21.206182)
+			pos = ( 0.000000, 0.000002, 21.206167)
 		}
 		Bone {
 			name = "anchor12"
 			coordinate = "anchor14"
-			srot = ( 0.032118, 0.728742 ,0.683461, -0.028029)
+			srot = ( 0.032118, 0.728742, 0.683461, -0.028029)
+			rot = ( 0.061535, 0.040561, -0.006666, -0.997258)
 			start = "j_anchor12"
 			end = "j_anchor13"
+		}
+		Locate {
+			name = "j_anchor13"
+			coordinate = "anchor12"
+			spos = ( 0.000003, -0.000000, 17.390135)
+			pos = ( 0.000004, -0.000001, 17.390165)
+		}
+		Locate {
+			name = "j_anchor06"
+			coordinate = "anchor12"
+			spos = ( -23.053329, -4.213017, 8.042647)
+			pos = ( -23.053328, -4.213018, 8.042678)
+		}
+		Locate {
+			name = "j_anchor07"
+			coordinate = "anchor12"
+			spos = ( 22.675489, -3.258542, 4.464279)
+			pos = ( 22.675489, -3.258543, 4.464309)
 		}
 		Bone {
 			name = "anchor06"
 			coordinate = "anchor12"
-			srot = ( -0.213585, -0.690482 ,0.216243, 0.656395)
+			srot = ( -0.213586, -0.690482, 0.216244, 0.656395)
+			rot = ( -0.692964, 0.709767, 0.124448, -0.023344)
 			start = "j_anchor06"
 			end = "j_anchor08"
+		}
+		Locate {
+			name = "j_anchor08"
+			coordinate = "anchor06"
+			spos = ( -0.000005, -0.000015, 28.521627)
+			pos = ( -0.000005, -0.000011, 28.521633)
 		}
 		Bone {
 			name = "anchor08"
 			coordinate = "anchor06"
-			srot = ( -0.214334, -0.671011 ,0.213580, 0.676897)
+			srot = ( -0.214334, -0.671011, 0.213580, 0.676897)
+			rot = ( -0.001516, -0.026207, 0.010857, 0.999596)
 			start = "j_anchor08"
 			end = "j_anchor10"
+		}
+		Locate {
+			name = "j_anchor10"
+			coordinate = "anchor08"
+			spos = ( 0.000001, -0.000002, 28.707535)
+			pos = ( 0.000001, 0.000002, 28.707541)
 		}
 		Bone {
 			name = "anchor10"
 			coordinate = "anchor08"
-			srot = ( -0.311096, -0.625827 ,0.310482, 0.644329)
+			srot = ( -0.311096, -0.625827, 0.310482, 0.644329)
+			rot = ( 0.147151, -0.008834, 0.002064, 0.989072)
 			start = "j_anchor10"
 			end = "site_anchor10"
 		}
 		Locate {
 			name = "site_anchor10"
 			coordinate = "anchor10"
-			spos = ( 0.000002, -0.000011 ,19.949028)
-		}
-		Locate {
-			name = "j_anchor10"
-			coordinate = "anchor08"
-			spos = ( 0.000006, 0.000020 ,28.707531)
-		}
-		Locate {
-			name = "j_anchor08"
-			coordinate = "anchor06"
-			spos = ( 0.000000, -0.000027 ,28.521599)
-		}
-		Locate {
-			name = "j_anchor06"
-			coordinate = "anchor12"
-			spos = ( -23.053331, -4.213017 ,8.042624)
+			spos = ( -0.000000, -0.000012, 19.948997)
+			pos = ( -0.000000, -0.000012, 19.948997)
 		}
 		Bone {
 			name = "anchor07"
 			coordinate = "anchor12"
-			srot = ( -0.210811, 0.698634 ,-0.228560, 0.644383)
+			srot = ( -0.210812, 0.698634, -0.228560, 0.644383)
+			rot = ( 0.714648, 0.691515, 0.090205, -0.054299)
 			start = "j_anchor07"
 			end = "j_anchor09"
+		}
+		Locate {
+			name = "j_anchor09"
+			coordinate = "anchor07"
+			spos = ( 0.000001, -0.000016, 27.942719)
+			pos = ( 0.000001, -0.000004, 27.942709)
 		}
 		Bone {
 			name = "anchor09"
 			coordinate = "anchor07"
-			srot = ( -0.233496, 0.681763 ,-0.237853, 0.651233)
+			srot = ( -0.233496, 0.681763, -0.237854, 0.651233)
+			rot = ( 0.023522, 0.012431, -0.014981, 0.999534)
 			start = "j_anchor09"
 			end = "j_anchor11"
+		}
+		Locate {
+			name = "j_anchor11"
+			coordinate = "anchor09"
+			spos = ( -0.000000, -0.000003, 27.819242)
+			pos = ( -0.000001, 0.000014, 27.819239)
 		}
 		Bone {
 			name = "anchor11"
 			coordinate = "anchor09"
-			srot = ( -0.162738, 0.673708 ,-0.160116, 0.702849)
+			srot = ( -0.162739, 0.673708, -0.160116, 0.702849)
+			rot = ( -0.109214, 0.039114, -0.016544, 0.993111)
 			start = "j_anchor11"
 			end = "site_anchor11"
 		}
 		Locate {
 			name = "site_anchor11"
 			coordinate = "anchor11"
-			spos = ( 0.000000, 0.000013 ,7.291073)
-		}
-		Locate {
-			name = "j_anchor11"
-			coordinate = "anchor09"
-			spos = ( -0.000001, -0.000015 ,27.819223)
-		}
-		Locate {
-			name = "j_anchor09"
-			coordinate = "anchor07"
-			spos = ( 0.000002, 0.000009 ,27.942692)
-		}
-		Locate {
-			name = "j_anchor07"
-			coordinate = "anchor12"
-			spos = ( 22.675486, -3.258542 ,4.464252)
+			spos = ( 0.000001, -0.000012, 7.291076)
+			pos = ( 0.000001, -0.000012, 7.291076)
 		}
 		Bone {
 			name = "anchor13"
 			coordinate = "anchor12"
-			srot = ( -0.039905, 0.715879 ,0.696025, -0.038387)
+			srot = ( -0.039905, 0.715879, 0.696025, -0.038387)
+			rot = ( -0.026609, -0.031104, -0.223538, -0.973835)
 			start = "j_anchor13"
 			end = "site_anchor13"
 		}
 		Locate {
 			name = "site_anchor13"
 			coordinate = "anchor13"
-			spos = ( 0.000002, 0.000003 ,21.061125)
-		}
-		Locate {
-			name = "j_anchor13"
-			coordinate = "anchor12"
-			spos = ( 0.000001, -0.000001 ,17.390108)
-		}
-		Locate {
-			name = "j_anchor12"
-			coordinate = "anchor14"
-			spos = ( 0.000000, 0.000003 ,21.206167)
+			spos = ( 0.000002, -0.000000, 21.061087)
+			pos = ( 0.000002, -0.000000, 21.061087)
 		}
 		Bone {
 			name = "anchor15"
-			srot = ( -0.711755, -0.001622 ,-0.001601, 0.702424)
+			srot = ( -0.711755, -0.001622, -0.001601, 0.702424)
+			rot = ( -0.661369, 0.263039, -0.262563, -0.651508)
 			start = "j_anchor14"
 			end = "site_anchor15"
+		}
+		Locate {
+			name = "site_anchor15"
+			coordinate = "anchor15"
+			spos = ( 0.000000, -0.000001, 14.089047)
+			pos = ( 0.000000, -0.000001, 14.089047)
+		}
+		Locate {
+			name = "j_anchor04"
+			coordinate = "anchor15"
+			spos = ( 9.386746, -0.677575, 21.219654)
+			pos = ( 9.386747, -0.677575, 21.219662)
+		}
+		Locate {
+			name = "j_anchor05"
+			coordinate = "anchor15"
+			spos = ( -9.451159, -0.678708, 21.133814)
+			pos = ( -9.451159, -0.678708, 21.133821)
 		}
 		Bone {
 			name = "anchor04"
 			coordinate = "anchor15"
-			srot = ( -0.666802, -0.050555 ,-0.047894, 0.741974)
+			srot = ( -0.666802, -0.050555, -0.047894, 0.741974)
+			rot = ( -0.088759, 0.092024, -0.192648, 0.972903)
 			start = "j_anchor04"
 			end = "j_anchor"
+		}
+		Locate {
+			name = "j_anchor"
+			coordinate = "anchor04"
+			spos = ( -0.000003, -0.000002, 49.449902)
+			pos = ( -0.000006, -0.000002, 49.449909)
 		}
 		Bone {
 			name = "anchor"
 			coordinate = "anchor04"
-			srot = ( -0.771031, -0.028004 ,-0.024602, 0.635706)
+			srot = ( -0.771031, -0.028004, -0.024602, 0.635706)
+			rot = ( 0.148292, -0.031882, 0.008114, 0.988396)
 			start = "j_anchor"
 			end = "j_anchor02"
+		}
+		Locate {
+			name = "j_anchor02"
+			coordinate = "anchor"
+			spos = ( 0.000004, -0.000003, 52.737701)
+			pos = ( 0.000005, -0.000004, 52.737694)
 		}
 		Bone {
 			name = "anchor02"
 			coordinate = "anchor"
-			srot = ( -0.001218, -0.247367 ,0.968921, -0.000271)
+			srot = ( -0.001218, -0.247367, 0.968921, -0.000271)
+			rot = ( 0.034203, -0.589837, -0.806636, -0.016144)
 			start = "j_anchor02"
 			end = "site_anchor02"
 		}
 		Locate {
 			name = "site_anchor02"
 			coordinate = "anchor02"
-			spos = ( -0.000000, 0.000017 ,28.216909)
-		}
-		Locate {
-			name = "j_anchor02"
-			coordinate = "anchor"
-			spos = ( 0.000004, -0.000005 ,52.737686)
-		}
-		Locate {
-			name = "j_anchor"
-			coordinate = "anchor04"
-			spos = ( -0.000005, -0.000005 ,49.449932)
-		}
-		Locate {
-			name = "j_anchor04"
-			coordinate = "anchor15"
-			spos = ( 9.386744, -0.677571 ,21.219650)
+			spos = ( 0.000001, 0.000009, 28.216909)
+			pos = ( 0.000001, 0.000009, 28.216909)
 		}
 		Bone {
 			name = "anchor05"
 			coordinate = "anchor15"
-			srot = ( -0.667339, 0.046363 ,0.043890, 0.742013)
+			srot = ( -0.667339, 0.046363, 0.043890, 0.742013)
+			rot = ( -0.073687, -0.128366, -0.187308, 0.971086)
 			start = "j_anchor05"
 			end = "j_anchor01"
+		}
+		Locate {
+			name = "j_anchor01"
+			coordinate = "anchor05"
+			spos = ( 0.000001, -0.000008, 49.741337)
+			pos = ( 0.000002, -0.000008, 49.741344)
 		}
 		Bone {
 			name = "anchor01"
 			coordinate = "anchor05"
-			srot = ( -0.770900, 0.038386 ,0.029686, 0.635105)
+			srot = ( -0.770900, 0.038386, 0.029686, 0.635105)
+			rot = ( 0.148496, 0.014987, -0.004278, 0.988790)
 			start = "j_anchor01"
 			end = "j_anchor03"
+		}
+		Locate {
+			name = "j_anchor03"
+			coordinate = "anchor01"
+			spos = ( -0.000003, -0.000005, 52.469059)
+			pos = ( -0.000005, -0.000006, 52.469055)
 		}
 		Bone {
 			name = "anchor03"
 			coordinate = "anchor01"
-			srot = ( 0.023950, -0.258023 ,0.965829, 0.005058)
+			srot = ( 0.023950, -0.258023, 0.965829, 0.005058)
+			rot = ( 0.114912, 0.565450, 0.816009, 0.034512)
 			start = "j_anchor03"
 			end = "site_anchor03"
 		}
 		Locate {
 			name = "site_anchor03"
 			coordinate = "anchor03"
-			spos = ( 0.000002, 0.000005 ,27.086592)
-		}
-		Locate {
-			name = "j_anchor03"
-			coordinate = "anchor01"
-			spos = ( -0.000002, 0.000002 ,52.469067)
-		}
-		Locate {
-			name = "j_anchor01"
-			coordinate = "anchor05"
-			spos = ( 0.000002, -0.000008 ,49.741348)
-		}
-		Locate {
-			name = "j_anchor05"
-			coordinate = "anchor15"
-			spos = ( -9.451157, -0.678704 ,21.133810)
-		}
-		Locate {
-			name = "site_anchor15"
-			coordinate = "anchor15"
-			spos = ( 0.000000, 0.000001 ,14.089046)
+			spos = ( -0.000001, 0.000003, 27.086590)
+			pos = ( -0.000001, 0.000003, 27.086590)
 		}
 	}
 	Polygon {
@@ -363,7 +400,7 @@ Character {
 				34 ( 0.859528 )
 				37 ( 1.000000 )
 				39 ( 0.266358 )
-				41 ( 0.630890 )
+				41 ( 0.630889 )
 				42 ( 1.000000 )
 				43 ( 1.000000 )
 				46 ( 0.944968 )
@@ -401,7 +438,7 @@ Character {
 				439 ( 0.859528 )
 				442 ( 1.000000 )
 				444 ( 0.266358 )
-				446 ( 0.630890 )
+				446 ( 0.630889 )
 				447 ( 1.000000 )
 				449 ( 0.944968 )
 				452 ( 1.000000 )
@@ -680,7 +717,7 @@ Character {
 				526 ( 1.000000 )
 				527 ( 0.910754 )
 				528 ( 1.000000 )
-				529 ( 0.811407 )
+				529 ( 0.811406 )
 				530 ( 1.000000 )
 				531 ( 0.691666 )
 				532 ( 0.822983 )
@@ -732,7 +769,7 @@ Character {
 				164 ( 0.659020 )
 				165 ( 1.000000 )
 				166 ( 1.000000 )
-				170 ( 0.606523 )
+				170 ( 0.606522 )
 				184 ( 0.042155 )
 				190 ( 0.188197 )
 				199 ( 0.574830 )
@@ -741,7 +778,7 @@ Character {
 				218 ( 0.058646 )
 				220 ( 0.791383 )
 				228 ( 0.713194 )
-				245 ( 0.366551 )
+				245 ( 0.366550 )
 				391 ( 0.871294 )
 				392 ( 1.000000 )
 				393 ( 0.628962 )
@@ -760,7 +797,7 @@ Character {
 				406 ( 1.000000 )
 				407 ( 1.000000 )
 				408 ( 1.000000 )
-				409 ( 0.342487 )
+				409 ( 0.342486 )
 				410 ( 0.574526 )
 				411 ( 1.000000 )
 				412 ( 1.000000 )
@@ -845,7 +882,7 @@ Character {
 				167 ( 1.000000 )
 				168 ( 1.000000 )
 				169 ( 1.000000 )
-				170 ( 0.393477 )
+				170 ( 0.393478 )
 				171 ( 1.000000 )
 				172 ( 1.000000 )
 				173 ( 1.000000 )
@@ -920,7 +957,7 @@ Character {
 				242 ( 1.000000 )
 				243 ( 1.000000 )
 				244 ( 1.000000 )
-				245 ( 0.633449 )
+				245 ( 0.633450 )
 				246 ( 1.000000 )
 				247 ( 1.000000 )
 				248 ( 1.000000 )
@@ -930,7 +967,7 @@ Character {
 				252 ( 1.000000 )
 				391 ( 0.128706 )
 				393 ( 0.371038 )
-				409 ( 0.657513 )
+				409 ( 0.657514 )
 				410 ( 0.425474 )
 				416 ( 1.000000 )
 			}
@@ -1338,7 +1375,6 @@ Character {
 	}
 	Polygon {
 		name = "obj1"
-		coordinate = "anchor03"
 	}
 }
 Eof
