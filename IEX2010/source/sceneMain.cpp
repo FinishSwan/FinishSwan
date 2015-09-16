@@ -138,9 +138,9 @@ bool sceneMain::Initialize()
 	//ÉXÉPÅ[Éãê›íË
 	char* filename[8] =
 	{
-		("DATA\\IMO\\tana.IMO"),
+		("DATA\\IMO\\new_tana.IMO"),
 		("DATA\\IMO\\bed.IMO"),
-		("DATA\\IMO\\sofa.IMO"),
+		("DATA\\IMO\\new_sofa.IMO"),
 		("DATA\\IMO\\table_kai.IMO"),
 		("DATA\\IMO\\tanataka.IMO"),
 		("DATA\\IMO\\terebi.IMO"),
