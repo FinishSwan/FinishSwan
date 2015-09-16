@@ -9,6 +9,7 @@ class	sceneMain : public Scene
 private:
 	//iexView*	view;
 	bool GOflag;
+	iex2DObj* logo;
 public:
 	~sceneMain();
 	//	‰Šú‰»

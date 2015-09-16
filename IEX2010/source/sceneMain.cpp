@@ -82,6 +82,8 @@ bool sceneMain::Initialize()
 	iex3DObj* insert = new iex3DObj("DATA\\CHR\\human\\human Find_Me.IEM");
 	//オブジェクト初期化
 	blackcircle = new BlackCircle();
+
+	logo = new iex2DObj("DATA\\BG\\logo.png");
 		//lpstage = new Fileobject(1,
 		//0.3,
 		//Vector3(0, -6, 0),
@@ -258,7 +260,7 @@ bool sceneMain::Initialize()
 
 sceneMain::~sceneMain()
 {
-	
+	delete logo;
 	delete camera;
 	delete stage;
 	delete wave;
@@ -366,7 +368,7 @@ void	sceneMain::Update()
 		return;
 	}
 
-	if (time > 6.0f && !clear)
+	if (time > 6.0f && !clear && !GOflag)
 	{
 		clear = true;
 		FadeManager::SetColor(Vector3(1, 1, 1));
@@ -418,6 +420,8 @@ void	sceneMain::Render()
 	/*char	str[128];
 	sprintf(str, "x %03f : y %03f : z %03f", p.x, p.y, p.z);
 	IEX_DrawText(str, 10, 10, 400, 20, 0xFF000000);*/
+
+	logo->Render(0, 0, 1280, 720, 0, 0, 1280, 720);
 
 	if (blackcircle->IsEnable())
 	{

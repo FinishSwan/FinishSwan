@@ -312,13 +312,15 @@ bool Player::Update()
 	{
 		normal.y = .0f;
 		normal.Normalize();
+		//normal.y = 0.5f;
+		//normal.Normalize();
 		Vector3 len = pos - BeforePos;
 		len.Normalize();
 		float dot = Vector3Dot(velocity, len);
 		float power = Vector3Dot(velocity, -normal);
 		velocity.Normalize();
 		velocity *= dot;
-		wave->Start_Wave(pos + Vector3(0, 4, 0), -normal, 5.0f + 6.0f * power, (5.0f + 6.0f * power) * 15.0f);
+		wave->Start_Wave(pos + Vector3(0, 2, 0), -normal, 5.0f + 6.0f * power, (5.0f + 6.0f * power) * 15.0f);
 	}
     
 	//“Š‹…
@@ -374,7 +376,7 @@ void Player::DebugText()
 void Player::Render()
 {
 	//obj->Render();
-	DebugText();
+	//DebugText();
 	shader->SetValue("Color", D3DXVECTOR4(0.5f, 0.5f, 0.5f, 1.0f));
 	if (!Paint_Render(obj))
 		obj->Render(shader,"color");
