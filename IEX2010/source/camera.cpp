@@ -23,22 +23,32 @@ void Camera::Rotate()
 	Vector3Cross(up, forward,right);
 	up.Normalize();
 
-	forward += up * InputManager::GetMouseAxisY() * -0.007f;
-	forward += right * InputManager::GetMouseAxisX()* 0.007f;
-
+	Vector3 temp = forward+ up* InputManager::GetMouseAxisY() * -0.007f;
+	temp.Normalize();
+	Vector3 kizyun(0, 1, 0);
+	float naiseki = Vector3Dot(kizyun, temp);
+	naiseki = max(-1, naiseki);
+	naiseki = min(1, naiseki);
+	naiseki = acos(naiseki);
+	
+	if ((naiseki > 1.0) && ( naiseki < 2.8))
+	{
+		forward += up* InputManager::GetMouseAxisY() * -0.007f;
+	}
+		forward += right * InputManager::GetMouseAxisX()* 0.007f;
+	
 	//‘O•ûŒü‚Ì³‹K‰»
-		forward.Normalize();
+	forward.Normalize();
 }
 
 void Camera::Update()
 {
 	Rotate();
 	//Length_Update();
-
-
-
 	Directional();
 	Set(pos, target);
 }
+
+
 
 

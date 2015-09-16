@@ -34,7 +34,6 @@ public:
 	Vector3 GetTarget(){ return target; }
 	Vector3 GetForward(){ return forward; }
 
-
 };
 
 
