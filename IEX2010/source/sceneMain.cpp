@@ -14,6 +14,9 @@
 #include	"ObjectManager.h"
 
 #include	"EntryPoint.h"
+#include	"ScaleManager.h"
+
+
 
 //*****************************************************************************************************************************
 //
@@ -81,8 +84,6 @@ bool sceneMain::Initialize()
 	
 
 	//オブジェクト初期化
-	
-
 	desk = new Fileobject(1,
 		0.3,
 		Vector3(5, 0, 0),
@@ -96,12 +97,11 @@ bool sceneMain::Initialize()
 	hondana = new Fileobject(1,
 		0.3,
 		Vector3(2, 1, 3),
-		Vector3(70, 0, 0),
 		Vector3(0, 0, 0),
 		Vector3(1, 1, 1),
 		BaseObjct::TYPE::judge,
 		stage);
-
+	
 	//notePC = new Fileobject(1,
 	//	0.3,
 	//	Vector3(-20, 10, 0),
@@ -129,6 +129,8 @@ bool sceneMain::Initialize()
 		Vector3(1, 1, 1),BaseObjct::TYPE::judge,
 		insert_ball);
 	
+	
+
 	
 	EntryPoint::Initialize();
 
@@ -177,6 +179,44 @@ bool sceneMain::Initialize()
 
 		}
 
+		//スケール設定
+
+		char* filename[8] =
+		{
+			("DATA\\IMO\\tana.IMO"),
+			("DATA\\IMO\\bed.IMO"),
+			("DATA\\IMO\\sofa.IMO"),
+			("DATA\\IMO\\table_kai.IMO"),
+			("DATA\\IMO\\tanataka.IMO"),
+			("DATA\\IMO\\terebi.IMO"),
+			("DATA\\IMO\\toire.IMO"),
+			("DATA\\IMO\\tukuetoisu.IMO"),
+		};
+
+		float scale[8] =
+		{
+			0.1f,
+			0.1f,
+			0.1f,
+			0.1f,
+			0.1f,
+			0.1f,
+			0.1f,
+			0.1f,
+		};
+
+		for (int i = 0; i <8; i++)
+		{
+			ScaleManager::Register(filename[i],scale[i]);
+		}
+
+		for (int i = 0; i < 8; i++)
+		{
+			ScaleManager::GetScale(filename[i]);
+		}
+
+
+
 	//波初期化
 	wave = new Wave();
 
@@ -192,7 +232,7 @@ bool sceneMain::Initialize()
 	//obj_manager.InsertObject(notePC);
 
 
-	EntryPoint::Initialize();
+	//EntryPoint::Initialize();
 
 	//EntryPoint::Register(desk->GetPos(),desk->GetAngle());
 	//Vector3 desk_pos(0,0,0);
@@ -226,7 +266,7 @@ sceneMain::~sceneMain()
 void	sceneMain::Update()
 {
 	//	カメラ更新
-	Vector3 p =obj_manager.GetPlayer()->GetPos() + Vector3(0,7,0);
+	Vector3 p =obj_manager.GetPlayer()->GetPos() + Vector3(0,5,0);
 	camera->SetTarget(p);
 	camera->Update();
 
