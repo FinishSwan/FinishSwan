@@ -7,7 +7,11 @@
 #include	"Fade.h"
 #include	"..\CP11Rand.h"
 
+#include    "..\EntryPoint.h"
+#include    "..\ScaleManager.h"
+
 #include <crtdbg.h>
+#include    "..\ObjectManager.h"
 
 //*****************************************************************************************************************************
 //
@@ -35,9 +39,72 @@ BOOL	InitApp( HWND hWnd )
 
 	//	システムの初期化
 	SYSTEM_Initialize();
-
+    obj_manager.Initialize();
 	FadeManager::SetColor(Vector3(1.0f, 1.0f, 1.0f));
 	FadeManager::FadeOut(5.0f);
+
+    EntryPoint::Initialize();
+    
+
+    //オブジェクトの位置決定
+    Vector3 pos[8] =
+    {
+        Vector3(0, 0, 0),
+        Vector3(23.74, 0, 24.04),
+        Vector3(-26.74, 0, 29.26),
+        Vector3(-30.88, 0, -29.46),
+        Vector3(29.85, 0, -29.35),
+        Vector3(-1.02, 0, -9.32),
+        Vector3(23.42, 0, 0.51),
+        Vector3(0.66, 0, 25.31),
+    };
+    //向き決定
+    Vector3 angle[9] =
+    {
+        Vector3(0, 0, 0),
+        Vector3(0, 0, 0),
+        Vector3(0, 0, 0),
+        Vector3(0, 0, 0),
+        Vector3(0, 0, 0),
+        Vector3(0, 0, 0),
+        Vector3(0, 0, 0),
+        Vector3(0, 0, 0),
+    };
+
+    for (int i = 0; i < 9; i++)
+    {
+        EntryPoint::Register(pos[i], angle[i]);
+    }
+    //スケール設定
+    char* filename[9] =
+    {
+        "DATA\\IMO\\new_room.IMO",
+        ("DATA\\IMO\\tana.IMO"),
+        ("DATA\\IMO\\bed.IMO"),
+        ("DATA\\IMO\\sofa.IMO"),
+        ("DATA\\IMO\\table_kai.IMO"),
+        ("DATA\\IMO\\tanataka.IMO"),
+        ("DATA\\IMO\\terebi.IMO"),
+        ("DATA\\IMO\\toire.IMO"),
+        ("DATA\\IMO\\tukuetoisu.IMO"),
+    };
+    float scale[9] =
+    {
+        1.0f,
+        0.08f,
+        3.0f,
+        0.85f,
+        0.1f,
+        0.2f,
+        0.15f,
+        0.1f,
+        0.005f,
+    };
+
+    for (int i = 0; i < 9; i++)
+    {
+        ScaleManager::Register(filename[i], scale[i]);
+    }
 
 	RandomEngine::Initialize();
 	//	メインフレームワーク生成
@@ -140,6 +207,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	//	全解放	
 	delete	MainFrame;
 	SYSTEM_Release();
+    obj_manager.Release();
 	iexSystem::CloseDebugWindow();
 	IEX_ReleaseInput();
 	IEX_Release();

@@ -5,6 +5,7 @@
 
 #include	"Fade.h"
 
+#include    "ObjectManager.h"
 
 sceneTitle::~sceneTitle()
 {
@@ -30,6 +31,7 @@ void sceneTitle::Update()
 	{
 		if (KEY_Get(KEY_SPACE) == 3)
 		{
+            obj_manager.PlacementAllObject();
 			Pushed = true;
 			FadeManager::FadeIn(1.5f);
 		}
