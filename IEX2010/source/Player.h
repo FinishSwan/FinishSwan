@@ -47,6 +47,8 @@ public:
 	float StageWallRight(Vector3* vec);
 	float StageWallLeft(Vector3* vec);
 
+	bool IsGameOver(){ return FallSpeed > 10.0f; }
+
 	void Fall();
 
 	bool IsFalled(){ return Falled; }

@@ -1,11 +1,14 @@
-#include	"Fade.h"
+
 #include	"iextreme.h"
+#include	"Fade.h"
 
 float FadeManager::FadeStartVal = .0f;
 float FadeManager::FadeEndVal;
 float FadeManager::FadeMaxTime;
 float FadeManager::FadeTime;
 float FadeManager::FadeVal = 1.0f;
+
+Vector3 FadeManager::color;
 
 void  FadeManager::Fade_Start(float StartVal, float EndVal, float Time)
 {
@@ -41,8 +44,8 @@ void  FadeManager::Update()
 
 void  FadeManager::Render()
 {
-	DWORD color = 0x00FFFFFF;
-	color |= (unsigned int)(FadeVal * 255.0f) << 24;
-	iexPolygon::Rect(0, 0, iexSystem::ScreenWidth, iexSystem::ScreenHeight, RS_ADD, color);
+	DWORD work = 0x00000000;
+	work = ((unsigned int)(FadeVal * 255.0f) << 24) | ((unsigned int)(color.x * 255.0f) << 16) | ((unsigned int)(color.y * 255.0f) << 8) | (unsigned int)(color.z * 255.0f);
+	iexPolygon::Rect(0, 0, iexSystem::ScreenWidth, iexSystem::ScreenHeight, RS_COPY, work);
 
 }
