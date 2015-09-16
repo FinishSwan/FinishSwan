@@ -12,7 +12,7 @@ Ball::Ball(const float radius, const float adjust_h,
 	const Vector3& color,
 	BaseObjct::TYPE t,
 	iexMesh* insert_mesh) :BaseObjct(radius, adjust_h, pos, angle, scale, color,t),
-	obj(insert_mesh), enable(false)
+	obj(insert_mesh), enable(false), HitObj(nullptr)
 {
 }
 
@@ -62,6 +62,7 @@ bool Ball::Update()
 	if (min.length < move.Length())
 	{
 		enable = false;
+		HitObj = min.ret;
 		min.ret->Paint_Start(min.out);
 		if (wave->IsRender(min.ret))
 		{

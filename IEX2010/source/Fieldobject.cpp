@@ -39,6 +39,7 @@ bool Fileobject::Update()
 void Fileobject::Render()
 {
 	//mesh->Render();
+	shader->SetValue("Color", D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f));
 	if(!Paint_Render(mesh))
 		mesh->Render(shader,"white");
 }

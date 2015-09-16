@@ -2,6 +2,8 @@
 
 #include "BaseObj.h"
 
+class Ball;
+
 class Particle_AfterImage
 {
 private :
@@ -21,6 +23,7 @@ public :
 class Player:public BaseObjct
 {
 private:
+	
 	 iex3DObj* obj;
 	 int state;//ƒ‚[ƒVƒ‡ƒ“—p
 	float outZ ;
@@ -31,6 +34,7 @@ private:
 	bool IsCanControl(){ return NoControlTime < .0f; }
 	void Throw_Start();
 public:
+	Ball* ball;
 	Player(const float radius, const float adjust_h,
 		const Vector3& pos, const Vector3& angle,
 		const Vector3& scale,

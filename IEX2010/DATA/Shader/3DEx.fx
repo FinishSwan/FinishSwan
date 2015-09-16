@@ -319,7 +319,7 @@ float4 PS_Paint(VS_OUTPUT_PAINT In) : COLOR
 	float dist = length(PaintPos - In.vPos);
 	if (dist < PaintRange)
 		return tex2D(DecaleSamp, In.Tex);
-	return float4(1, 1, 1, 1);
+	return Color;
 }
 
 float WaveHeight(float Length)

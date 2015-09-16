@@ -37,7 +37,7 @@ bool	BaseObjct::Base_Update()
 
 void	BaseObjct::Paint_Update()
 {
-	PaintRange += 0.1f;
+	PaintRange += 0.5f;
 }
 
 bool	BaseObjct::Paint_Render(iexMesh* mesh)

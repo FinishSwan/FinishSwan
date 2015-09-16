@@ -28,6 +28,8 @@ public :
 
 	BaseObjct* Collision_of_Sphere(BaseObjct* owner_object,float* ret_merikomi,Vector3* ret_merikomi_vec);
 
+	void AllPaint(BaseObjct* owner_object);
+
 };
 
 #define obj_manager (ObjectManager::GetInstance())

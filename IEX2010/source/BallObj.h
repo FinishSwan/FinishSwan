@@ -6,6 +6,7 @@ private:
 	iexMesh* obj;
 	Vector3 move;
 	bool	enable;
+	BaseObjct* HitObj;
 public:
 	Ball(const float radius, const float adjust_h,
 		const Vector3& pos, const Vector3& angle,
@@ -24,7 +25,9 @@ public:
 	int RayPick(Vector3* out, Vector3* pos, Vector3* vec, float *Dist)override;
 	void Collision(const Vector3& hit_position, BaseObjct* hit_object)override;
 
+
+	BaseObjct* GetHitObj(){ return HitObj; }
 };
 
-extern Ball* ball;
+//extern Ball* ball;
 

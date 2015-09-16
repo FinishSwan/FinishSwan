@@ -150,12 +150,23 @@ void	Wave::Wave_Setting_Param(float WaveTime, float WaveLossTime, float WaveMaxT
 void	Wave::Render()
 {
 
-	if (HitObj != nullptr)
+	if (HitObj == nullptr)
+		return;
+
+	if (HitObj->IsPainted())
+		return;
+
 		HitObj->Wave_Render();
 }
 
 
 bool	Wave::IsRender(BaseObjct* mesh)
 {
-	return mesh == HitObj;
+	if (mesh != HitObj)
+		return false;
+
+	if (HitObj == nullptr)
+		return false;
+
+	return !HitObj->IsPainted();
 }

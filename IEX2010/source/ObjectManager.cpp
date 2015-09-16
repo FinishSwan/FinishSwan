@@ -155,3 +155,23 @@ void	ObjectManager::Render()
 	}
 
 }
+
+void	ObjectManager::AllPaint(BaseObjct* owner_object)
+{
+	for (auto& it : m_object_array)
+	{
+		if (it == nullptr)
+			continue;
+	
+		if (it == owner_object)
+			continue;
+
+		if (it->IsPainted())
+			continue;
+
+		it->Paint_Start(owner_object->GetPos());
+
+	}
+
+	
+}

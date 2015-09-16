@@ -41,7 +41,7 @@ Fileobject*  desk = nullptr;
 Fileobject* lpstage = nullptr;
 Fileobject*  notePC = nullptr;
 
-Ball*		ball = NULL;
+//Ball*		ball = NULL;
 
 Wave*		wave = NULL;
 
@@ -95,7 +95,7 @@ bool sceneMain::Initialize()
 		BaseObjct::TYPE::player,
 		insert);
 	obj_manager.InsertObject(player);
-	obj_manager.InsertObject(ball);
+	//obj_manager.InsertObject(ball);
 	//	カメラ設定
 	//view = new iexView();
 	camera = new Camera();
@@ -213,13 +213,13 @@ bool sceneMain::Initialize()
 	//ステージ
 
 
-	ball = new Ball(1,
-		0.3,
-		Vector3(0, 0, 0),
-		Vector3(0, 0, 0),
-		Vector3(0.05f, 0.05f, 0.05f),
-		Vector3(1, 1, 1), BaseObjct::TYPE::judge,
-		insert_ball);
+	//ball = new Ball(1,
+	//	0.3,
+	//	Vector3(0, 0, 0),
+	//	Vector3(0, 0, 0),
+	//	Vector3(0.05f, 0.05f, 0.05f),
+	//	Vector3(1, 1, 1), BaseObjct::TYPE::judge,
+	//	insert_ball);
 
 
 	//波初期化
@@ -233,7 +233,7 @@ bool sceneMain::Initialize()
 
 	//obj_manager.InsertObject(desk);
 	obj_manager.InsertObject(lpstage);
-	obj_manager.InsertObject(ball);
+	//obj_manager.InsertObject(ball);
 	//obj_manager.InsertObject(notePC);
 
 
@@ -256,6 +256,7 @@ sceneMain::~sceneMain()
 	delete camera;
 	delete stage;
 	delete wave;
+	//delete ball;
 	iexParticle::Release();
 	EntryPoint::Release();
 
@@ -318,6 +319,10 @@ void	sceneMain::Update()
 	iexParticle::Update();
 	blackcircle->Update();
 
+	if (KEY_Get(KEY_ENTER) == 3)
+	{
+		obj_manager.AllPaint(player->ball->GetHitObj());
+	}
 	if (player->IsGameOver() && !GOflag)
 	{
 		GOflag = true;
@@ -364,6 +369,7 @@ void	sceneMain::Render()
 	iexParticle::Render(shader2D, "copy");
 
 	Vector3 p = obj_manager.GetPlayer()->GetPos();
+
 
 
 	/*char	str[128];

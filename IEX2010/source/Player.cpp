@@ -15,14 +15,26 @@ Player::Player(const float radius, const float adjust_h,
 		const Vector3& color,
 		const TYPE type,
 		iex3DObj* insert_skinmesh) :BaseObjct(radius,adjust_h,pos,angle,scale,color,type),
-		obj(insert_skinmesh), m_run_effect(new Particle_AfterImage()), NoControlTime(-1.0f), Falled(false)
+		obj(insert_skinmesh), m_run_effect(new Particle_AfterImage()), NoControlTime(-1.0f), Falled(false), ball(nullptr)
 {
+	//ƒ{[ƒ‹“Ç‚Ýž‚Ý
+	iexMesh* insert_ball = new iexMesh("DATA\\IMO\\Ball.IMO");
+
+
+	ball = new Ball(1,
+		0.3,
+		Vector3(0, 0, 0),
+		Vector3(0, 0, 0),
+		Vector3(0.05f, 0.05f, 0.05f),
+		Vector3(1, 1, 1), BaseObjct::TYPE::judge,
+		insert_ball);
 }
 
 Player::~Player()
 {
     delete m_run_effect;
 	delete obj;
+	delete ball;
 }
 
 bool Player::Init(char*filename)
@@ -337,6 +349,7 @@ bool Player::Update()
 		ball->Ball_Start(Vector3(mat._41, mat._42, mat._43), front * 3.0f);
 		obj->SetParam(0, 0);
 	}
+	ball->Update();
 	return true;
 }
 
@@ -363,7 +376,10 @@ void Player::Render()
 	//obj->Render();
 	DebugText();
 	shader->SetValue("Color", D3DXVECTOR4(0.5f, 0.5f, 0.5f, 1.0f));
-	obj->Render(shader,"color");
+	if (!Paint_Render(obj))
+		obj->Render(shader,"color");
+
+	ball->Render();
 }
 
 int Player::RayPick(Vector3* out, Vector3* pos, Vector3* vec, float *Dist)
