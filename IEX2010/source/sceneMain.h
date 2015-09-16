@@ -8,6 +8,7 @@ class	sceneMain : public Scene
 {
 private:
 	//iexView*	view;
+	bool GOflag;
 public:
 	~sceneMain();
 	//	‰Šú‰»

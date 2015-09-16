@@ -36,6 +36,7 @@ BOOL	InitApp( HWND hWnd )
 	//	ƒVƒXƒeƒ€‚Ì‰Šú‰»
 	SYSTEM_Initialize();
 
+	FadeManager::SetColor(Vector3(1.0f, 1.0f, 1.0f));
 	FadeManager::FadeOut(5.0f);
 
 	RandomEngine::Initialize();

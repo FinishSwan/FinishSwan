@@ -20,6 +20,7 @@ bool sceneTitle::Initialize()
 	m_view->Set(Vector3(0, 500, -500), Vector3(0, 0, 0));
 	iexLight::DirLight(0, &Vector3(0,0,1), 1.0f, 1.0f, 1.0f);
 	iexLight::SetFog(800, 1000, 0);
+	FadeManager::FadeOut(1.0f);
     return true;
 }
 

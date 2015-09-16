@@ -14,7 +14,7 @@ sceneSuccess::~sceneSuccess()
 bool sceneSuccess::Initialize()
 {
     m_view = new iexView();
-	m_img = new iex2DObj("DATA\\BG\\find.png");
+	m_img = new iex2DObj("DATA\\BG\\success.png");
 	Pushed = false;
 	m_view->Set(Vector3(0, 500, -500), Vector3(0, 0, 0));
 	iexLight::DirLight(0, &Vector3(0,0,1), 1.0f, 1.0f, 1.0f);
@@ -43,7 +43,7 @@ void sceneSuccess::Update()
 void sceneSuccess::Render()
 {
 	//m_view->Activate();
-    //m_view->Clear(0xFFFFFFFF);
+	m_view->Clear();
 	
 	m_img->Render(0, 0, 1280, 720, 0, 0, 1280, 720);
 }

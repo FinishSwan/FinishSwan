@@ -11,6 +11,8 @@
 
 #include	"ScrConverter.h"
 #include	"sceneMain.h"
+#include    "sceneTitle.h"
+#include	"sceneFailed.h"
 
 #include	"ObjectManager.h"
 
@@ -62,7 +64,7 @@ bool sceneMain::Initialize()
 	iexLight::DirLight(0, &dir, 1.0f, 1.0f, 1.0f);
 	iexLight::SetAmbient(0x808080);
 
-
+	GOflag = false;
 	//	•½sŒõ
 
 	obj_manager.Initialize();
@@ -315,6 +317,18 @@ void	sceneMain::Update()
 	//SetCursorPos(100, 200);
 	iexParticle::Update();
 	blackcircle->Update();
+
+	if (player->IsGameOver() && !GOflag)
+	{
+		GOflag = true;
+		FadeManager::SetColor(Vector3(0, 0, 0));
+		FadeManager::FadeIn(1.0f);
+	}
+
+	if (GOflag && FadeManager::IsFadeEnd())
+		MainFrame->ChangeScene(new sceneFailed());
+
+
 
 }
 

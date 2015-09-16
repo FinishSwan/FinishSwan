@@ -43,7 +43,7 @@ void sceneFind::Update()
 void sceneFind::Render()
 {
 	//m_view->Activate();
-    //m_view->Clear(0xFFFFFFFF);
+    m_view->Clear();
 	
 	m_img->Render(0, 0, 1280, 720, 0, 0, 1280, 720);
 }
