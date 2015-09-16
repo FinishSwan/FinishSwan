@@ -73,7 +73,6 @@ bool sceneMain::Initialize()
 	iex3DObj* insert = new iex3DObj("DATA\\CHR\\human\\human Find_Me.IEM");
 	//オブジェクト初期化
 	blackcircle = new BlackCircle();
-	desk = new Fileobject(1,
 		lpstage = new Fileobject(1,
 		0.3,
 		Vector3(0, -6, 0),
@@ -232,6 +231,7 @@ bool sceneMain::Initialize()
 
 	//obj_manager.InsertObject(desk);
 	obj_manager.InsertObject(lpstage);
+	obj_manager.InsertObject(ball);
 	//obj_manager.InsertObject(notePC);
 
 
