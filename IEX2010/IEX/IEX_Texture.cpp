@@ -70,7 +70,7 @@ void iexTexture::Release( Texture2D* lpTexture )
 	//	テクスチャの検索 
 	for( i=0 ; i<MAX_TEXTURE ; i++ ){
 		if( !TexInfo[i].lpTexture ) continue;
-		if( TexInfo[i].lpTexture != lpTexture ) continue;
+		if( TexInfo[i].lpTexture != lpTexture ) continue;  
 		no = i;
 		break;
 	}
