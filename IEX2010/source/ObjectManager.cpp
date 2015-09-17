@@ -288,7 +288,13 @@ bool ObjectManager::DecisionAnswerObject()
     if (m_answer_object)
         m_answer_object = nullptr;
     
-    int answer_index = RandomEngine::Execute(2, 8);
+	int answer_index;
+	do
+	{
+		answer_index = RandomEngine::Execute(2, 9);
+
+	} while (answer_index == 5);
+	//printf("%d", answer_index);
     assert(m_object_array[answer_index]);
     m_answer_object = m_object_array[answer_index];
     return true;
